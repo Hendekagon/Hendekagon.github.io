@@ -1,0 +1,2 @@
+;; Analyzed by ClojureScript 1.7.170
+{:name dynomics.ui.main, :doc "Main application entry point for CLJS build", :excludes #{}, :use-macros nil, :require-macros nil, :uses nil, :requires {ui dynomics.ui.ui, dynomics.ui.ui dynomics.ui.ui}, :imports nil}
