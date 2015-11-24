@@ -159,55 +159,58 @@
                       :font-family "monospace"}]
    [:.offscreen {:display :absolute
     :overflow :hidden :width "64px" :height "64px"}]
-   [:.trajectory_group {:opacity 0.3}]
-   [:.trajectory_path {:stroke "rgb(255,255,255)" :stroke-width 1 :fill "none"}]
-   [:.trajectory_arrowhead {:stroke "none" :fill "rgb(255,255,255)"}]
-   [:.dynamics_space {:padding-top "0em" :cursor "default" :padding-left "0em"
+   [:.trajectory_group {:opacity 1}]
+   [:.trajectory_path {:stroke "rgba(255,255,255,1)" :stroke-width 1 :fill "none"}]
+   [:.trajectory_arrowhead {:stroke "none" :fill "rgba(255,255,255,1)"}]
+   [:.dynomics_space {:padding-top "0em" :cursor "default" :padding-left "0em"
                       :padding-right "0em" :height "100%" :width "93%" :position "fixed"}]
-   [:.dynamics_space_space {:fill "rgb(200,230,250)"}]
-   [:.dynamics_space_background {:fill "rgb(50,50,50)"}]
-   [:.dynamics_node {:fill "rgb(255,130,200)" :opacity 0.0 :display :none}]
-   [:.dynamics_node_connections {:opacity 1}]
-   [:.dynamics_node_subgraph:hover>.dynamics_node {:opacity 0}]
-   [:.dynamics_node_subgraph:hover>.dynamics_node_connections {:opacity 1}]
-   [:.dynamics_node_connection_line {:stroke "rgb(130,130,130)" :stroke-width 0.07}]
-   [:.dynamics_node_connection_dot {:fill "rgb(90,90,90)"}]
-   [:.dynamics_node_selector_dot {:opacity 0}]
-   [:.dynamics_node_selected>.dynamics_node_selector_dot {:fill "rgb(255,150,70)" :opacity 1}]
-   [:.dynamics_node_selected {:fill "rgb(255,150,70)" :opacity 0.5}]
-   [:.dynamics_node_connection {:opacity 0.5}]
-   [:.dynamics_node_connection:hover {:opacity 1}]
-   [:.dynamics_edge {:stroke "rgb(50,50,50)" :stroke-width 0.001 :fill "none"}]
-   [:.dynamics_compatable_edge {:stroke "rgb(50,100,50)" :stroke-width 0.002 :fill "none"}]
-   [:.dynamics_region {:stroke "rgb(50,50,200)" :stroke-width 0.001 :fill "rgb(150,200,255)" :opacity 0.3}]
-   [:.dynamics_toolname {:font-size "1" :white-space "pre"}]
-   [:.dynamics_cursor {:fill "rgb(0,0,0)" :opacity 0.5}]
-   [:.dynamics_tool_selectors {:display :flex :flex-flow "row wrap" :border :none
+   [:.dynomics_space_space {:fill
+                            "rgb(200,230,250)"
+                            ;  "black"
+                            }]
+   [:.dynomics_space_background {:fill "rgb(50,50,50)"}]
+   [:.dynomics_node {:fill "rgb(255,130,200)" :opacity 0.0 :display :none}]
+   [:.dynomics_node_connections {:opacity 1}]
+   [:.dynomics_node_subgraph:hover>.dynomics_node {:opacity 0}]
+   [:.dynomics_node_subgraph:hover>.dynomics_node_connections {:opacity 1}]
+   [:.dynomics_node_connection_line {:stroke "rgb(130,130,130)" :stroke-width 0.07}]
+   [:.dynomics_node_connection_dot {:fill "rgb(90,90,90)"}]
+   [:.dynomics_node_selector_dot {:opacity 0}]
+   [:.dynomics_node_selected>.dynomics_node_selector_dot {:fill "rgb(255,150,70)" :opacity 1}]
+   [:.dynomics_node_selected {:fill "rgb(255,150,70)" :opacity 0.5}]
+   [:.dynomics_node_connection {:opacity 0.5}]
+   [:.dynomics_node_connection:hover {:opacity 1}]
+   [:.dynomics_edge {:stroke "rgb(50,50,50)" :stroke-width 0.001 :fill "none"}]
+   [:.dynomics_compatible_edge {:stroke "rgb(100,150,100)" :stroke-width 0.002 :fill "none"}]
+   [:.dynomics_region {:stroke "rgb(50,50,200)" :stroke-width 0.001 :fill "rgb(150,200,255)" :opacity 0.3}]
+   [:.dynomics_toolname {:font-size "1" :white-space "pre"}]
+   [:.dynomics_cursor {:fill "rgb(0,0,0)" :opacity 0.5}]
+   [:.dynomics_tool_selectors {:display :flex :flex-flow "row wrap" :border :none
                                :padding "0px" :margin-left "1em"}]
-   [:.dynamics_tool_things {:display :flex :flex-flow "row nowrap"}]
-   [:.dynamics_node_types {:display :flex :flex-flow "row wrap" :flex-shrink 1
+   [:.dynomics_tool_things {:display :flex :flex-flow "row nowrap"}]
+   [:.dynomics_node_types {:display :flex :flex-flow "row wrap" :flex-shrink 1
                            :justify-content "space-around"
                            :padding-left "0.5em"
                            :padding-right "0.5em"
                            :padding-bottom "0.5em"}]
-   [:.dynamics_node_type_selector {:display :flex :font-size "1em"
+   [:.dynomics_node_type_selector {:display :flex :font-size "1em"
                                    :width "32px"
                                    :height "32px"
                                    :padding "0em" :opacity 0.7
                                    :justify-content "center"
                                    :align-items "center"
                                    :color "white" :cursor "pointer"}]
-   [:.dynamics_node_type_selector:hover {:opacity 1 :background "rgb(100,100,100)"}]
-   [:.dynamics_tool_selector  {:display :flex
+   [:.dynomics_node_type_selector:hover {:opacity 1 :background "rgb(100,100,100)"}]
+   [:.dynomics_tool_selector  {:display :flex
                                :border :none :font-size "20px"
                                :padding "4px"
                                :color "rgb(150,150,150)"
                                :background "transparent"
                                :justify-content "center" :cursor "pointer"
                                :width "24px" :height "24px"}]
-   [".dynamics_tool_selector:not(.dynamics_tool_selected):hover" {:background "rgb(100,100,100)" :color "white"}]
-   [:.dynamics_tool_selected  {:background "transparent" :color "white"}]
-   [:.dynamics_current_tool_text  {:display :flex :font-size "0.7em"
+   [".dynomics_tool_selector:not(.dynomics_tool_selected):hover" {:background "rgb(100,100,100)" :color "white"}]
+   [:.dynomics_tool_selected  {:background "transparent" :color "white"}]
+   [:.dynomics_current_tool_text  {:display :flex :font-size "0.7em"
                                    :align-items "center"
                                    :margin-left "2em"
                                    :color "white"

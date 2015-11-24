@@ -3,11 +3,15 @@
   "This namespace contains functions for manipulating
   the state of the phase space and its associated objects"
 
-  (:require [loom.graph :as lg]
-            [loom.alg :as la]
-            [clojure.set :as cs]))
+  (:require
+    [loom.graph :as lg]
+    [loom.alg :as la]
+    [dynomics.space.graph :refer [as-connections]]
+    [clojure.set :as cs]))
 
 (def P partial)
+
+(defn F [f y] (fn [x] (f x y)))
 
 (def C comp)
 
@@ -15,15 +19,30 @@
 
 (def I identity)
 
-(def round (fn [x] (* (#?(:clj Math/round :cljs js/Math.round) (* x (if (< x 0) -1 1))) (if (< x 0) -1 1))))
+(defn round [x] (#?(:clj Math/round :cljs js/Math.round) x))
 
-(def abs (fn [x] (#?(:clj Math/abs :cljs js/Math.abs) x)))
+(defn cos [x] (#?(:clj Math/cos :cljs js/Math.cos) x))
+
+(defn sin [x] (#?(:clj Math/sin :cljs js/Math.sin) x))
+
+(defn unit [x] (if (< x 0) (max x -1) (min x 1)))
+
+(defn abs [x] (#?(:clj Math/abs :cljs js/Math.abs) x))
 
 (def PI #?(:clj Math/PI :cljs js/Math.PI))
 
 (def PI2 (* 2 PI))
 
-(defn c* [[ar ai] [br bi]] [(- (* ar br) (* ai bi)) (+ (* ai br) (* ar bi))])
+(def PIb4 (* 0.25 PI))
+
+(def r2d (/ 180 PI))
+
+(defn angle [[x y]] (#?(:clj Math/atan2 :cljs js/Math.atan2) x y))
+
+(defn p2c [[r theta]] (map (P * r) [(cos theta) (sin theta)]))
+
+(defn c* [[ar ai] [br bi]]
+  [(- (* ar br) (* ai bi)) (+ (* ai br) (* ar bi))])
 
 (defn c+ [a b] (map + a b))
 
@@ -139,12 +158,20 @@
   Returns the quadrant types of the given vectors
   e.g. (quadrants-types-by-position {:node-type 10 :position [1 0]} {:node-type 5 :position [-1 0]})
   => ((1 2) (1 2))
+
+  TODO need to return the types in the right order, as this
+  will give a false-positive when 2 nodes of the same type are
+  connected by the same connectors, as it doesn't take into account
+  that the nodes themselves are above and below eachother
   "
   ([{r1 :node-type p1 :position} {r2 :node-type p2 :position}]
    (map map
     (map (fn [i] (get-in node-types [i :quadrants])) [r1 r2])
-    (map (J (P c* [1 -1]) (P c* [1 1])) [p1 p2]))))
+    (map (J (P c* [1 -1]) (P c* [1 1])) (map (P map (C unit round double)) [p1 p2])))))
 
+; hey as well as just a boolean, we should also provide the kind of match
+; need a check for [nil nil] here
+;
 (defn compare-quadrants [qs]
   (apply = (map vec qs)))
 
@@ -182,20 +209,6 @@
 (defn deselect-all [state]
   (assoc-in state [:space :selected-nodes] #{}))
 
-; TODO update compatabilities
-(defn set-node-type
-  "Returns a function to set the given selected nodes
-  to the given node type id"
-  [id]
-  (fn [{{:keys [selected-nodes]} :space :as state}]
-    (println "Set node type of " selected-nodes " to " id)
-    (assoc
-      (reduce
-        (fn [r path]
-          (assoc-in r (conj path :node-type) id))
-        state selected-nodes)
-      :action {:verb :set :type :node-type :id id :description (str "Node type" id)})))
-
 (defn remove-edges
   "Returns the state with the given edges removed"
   [{{:keys [selected-nodes]} :space :as state}]
@@ -226,17 +239,33 @@
     (update-in s [:points]
       (fn [points] (map f points)))))
 
+(defn random-points
+  ([n] (repeatedly n (fn [] [(rand) (rand)]))))
+
+(defn grid-points
+  ([n])
+  ([nx ny]))
+
 (defn make-ds
-  ([] (make-ds [1 0.1]))
+  ([] (make-ds (p2c [1 PI])))
   ([v]
    {
      :f      (fn [p] (c* p v))
      :points [[1 0]]}))
 
-(defn spiral-system
-  ([n-points expansion rotation]
-   (map (comp first :points)
-     (take n-points (iterate update-ds (make-ds [expansion rotation]))))))
+(defn make-ds2
+  ([f n-points]
+    {
+     :f f
+     :points (random-points n-points)
+     }))
+
+(defn ds-evolution
+  ([n-time-points expansion rotation]
+    (ds-evolution n-time-points (make-ds [expansion rotation])))
+  ([n-time-points system]
+   (apply map list (take n-time-points
+      (map :points (iterate update-ds system))))))
 
 (defn make-some-nodes [n]
   (zipmap (range)
@@ -260,21 +289,65 @@
     {:node-type (get-in nodes [nid :node-type])
      :position (get-in nodes [nid :connections cid :position])}) nodez))
 
-(defn add-compatability-info [{{:keys [nodes selected-nodes]} :space :as state}]
-  (assoc-in state [:space :compatabilities (just-ids selected-nodes)]
-    (compare-quadrants (apply quadrants-types-by-position (quadrant-info selected-nodes nodes)))))
+(defn add-compatibility-info
+  "
+  Returns the given state with a map of node-node compatibilities added,
+  of the form {[nodeid1 nodeid2] true [nodeid4 nodeid5] false}
+  "
+  [{{:keys [nodes selected-nodes]} :space :as state}]
+  (assoc-in state [:space :compatibilities (just-ids selected-nodes)]
+    (compare-quadrants
+      (apply quadrants-types-by-position
+        (quadrant-info selected-nodes nodes)))))
 
-(defn make-connections [{{:keys [nodes selected-nodes]} :space :as state}]
+(defn make-connections
+  "Returns the given state with any connections that need to be
+  made added to the edges map. Only connect nodes if there are two
+  selected. Note that the connection is undirected"
+  [{{:keys [nodes selected-nodes]} :space :as state}]
   (println "Connect " selected-nodes)
   (if (== 2 (count selected-nodes))
     (update-in
       (assoc-in
-        (update-in (add-compatability-info state)
+        (update-in (add-compatibility-info state)
           [:space :edges] conj (vec selected-nodes))
        [:space :selected-nodes] #{})
        [:space :graph]
         (fn [g] (lg/add-edges g (vec (map (fn [[_ _ nid _ _]] nid) selected-nodes)))))
      state))
+
+; TODO use graph traversal on selected-nodes to save on connected-nodes
+(defn update-compatibility-info
+  "Following a node-type change, update the
+  compatibility info for its connections"
+  ([{{:keys [selected-nodes]} :space :as state}]
+    (reduce update-compatibility-info state (just-ids selected-nodes)))
+  ([{{:keys [graph edges nodes]} :space :as state} id]
+    (reduce
+      (fn [s edge]
+        (assoc-in s [:space :compatibilities (just-ids edge)]
+          (compare-quadrants
+            (apply quadrants-types-by-position
+              (quadrant-info edge nodes)))))
+      state (remove (C nil? last)
+              (map (juxt identity (C first (P lg/successors graph)))
+               (map (fn [c] [:space :nodes id :connections c]) (range 4)))))))
+
+(defn set-node-type
+  "Returns a function to set the given selected nodes
+  to the given node type id"
+  [id]
+  (fn [{{:keys [selected-nodes]} :space :as state}]
+    (println "Set node type of " selected-nodes " to " id)
+    (let [r (update-compatibility-info
+            (assoc
+              (reduce
+                (fn [r path]
+                  (assoc-in r (conj path :node-type) id))
+                state selected-nodes)
+              :action {:verb :set :type :node-type :id id :description (str "Node type" id)}))]
+      (println "  updated " (get-in r [:space :compatibilities]))
+      r)))
 
 ; don't like this...
 (defn simplify-connection [[_ _ nid _ cid]] [nid cid])

@@ -76,7 +76,6 @@
          ni1 (.createNodeIterator js/document svg (.-SHOW_ELEMENT js/NodeIterator) nil)
          ni2 (.createNodeIterator js/document (.-firstElementChild svgp) (.-SHOW_ELEMENT js/NodeIterator) nil)
          ]
-     (println "-------")
      (doseq [[i j] (map vector (take-while identity (repeatedly #(.nextNode ni1))) (take-while identity (repeatedly #(.nextNode ni2))))]
        (.removeAttribute j "id")
        (.removeAttribute j "class")
@@ -103,33 +102,45 @@
 (defn arrowhead [trajectory]
   (let [
         [p1 p2] (subvec trajectory (dec (dec (count trajectory))) (count trajectory))
+        [ox oy] p2
         v (map - p1 p2)
-        x (dc/c* v [0 0.5])
-        a1 (map + p2 x)
-        a2 (map - p2 x)
-        a3 (map - p2 v)
+        a (* dc/r2d (- dc/PI2 (dc/angle v)))
+        a1 [-1 0]
+        a2 [+1 0]
+        a3 [0 -2]
         E interpose]
         (path #js {:className "trajectory_arrowhead"
-                   :d (apply str (concat "M " (E " " a1) " L " (E " " a2) " L " a3 " z"))})))
+                   :transform (trs  [:t ox oy] [:s 2] [:r a])
+                   :d         (apply str (concat "M " (E " " a1) " L " (E " " a2) " L " (E " " a3) " z"))})))
 
 (defn make-trajectory-group
   ([with-arrowhead trajectory]
    (g #js {:className "trajectory_group"}
      (path #js
-         {:className "trajectory_path"
-          :d
-           (apply str
-             (reduce
-               (fn [r p] (concat r [" L "] (interpose " " p)))
-               (concat ["M "] (interpose " " (first trajectory))) (rest trajectory)))})
+       {:className "trajectory_path"
+        :d
+         (apply str
+           (reduce
+             (fn [r p] (concat r [" L "] (interpose " " p)))
+             (concat ["M "] (interpose " " (first trajectory))) (rest trajectory)))})
      (cond with-arrowhead (arrowhead (vec trajectory))))))
 
 (defn make-type-icon
-  ([type-id] (make-type-icon type-id 64 1 0.3))
-  ([type-id n-points expansion rotation]
-    (g #js {:id (str "dynamics_type_icon_" type-id)
-            :className (str "dynamics_type_icon " (str "type_icon_" type-id)) :transform "scale(0.05)"}
-      (make-trajectory-group :without-arrowhead (dc/spiral-system n-points expansion rotation)))))
+  ([type-id] (make-type-icon type-id 78 0 0.3))
+  ([type-id n-samples expansion rotation]
+    (g #js {:id (str "dynomics_type_icon_" type-id)
+            :className (str "dynomics_type_icon " (str "type_icon_" type-id))
+            :transform (trs [:t 0.5 0.5] [:s 0.05])}
+      (map
+        (comp (partial make-trajectory-group true) (partial drop 50))
+        (dc/ds-evolution n-samples
+          (assoc (dc/make-ds (dc/p2c [expansion rotation]))
+            :points
+            ;(dc/random-points 4)
+            (first (dc/ds-evolution 8 (dc/make-ds (dc/p2c [1 dc/PIb4]))))
+            )
+          ;(dc/make-ds2 (fn [p]) 8)
+          )))))
 
 ; need to account for combinations of subpaths
 (defn make-paths [{:keys [nodes edges regions node-scale] :as space}]
@@ -153,32 +164,32 @@
 (defn make-tools-palette-component
   "Returns a palette of tools"
   ([{:keys [current-tool tools tools-order state-updates] :as state}]
-   (div #js {:className "dynamics_tool_things"}
-     (div #js {:className "dynamics_tool_selectors"}
+   (div #js {:className "dynomics_tool_things"}
+     (div #js {:className "dynomics_tool_selectors"}
       (map
         (fn [[tk {:keys [description icon keybinding]}]]
-          (div #js {:className (str "dynamics_tool_selector " (cond (= tk current-tool) "dynamics_tool_selected"))
+          (div #js {:className (str "dynomics_tool_selector " (cond (= tk current-tool) "dynomics_tool_selected"))
                     :title     (str description " ( " (if (keyword? keybinding) (name keybinding) keybinding) " )")
                     :onMouseDown
                      (fn [e]
                        (put! state-updates
                          {
-                          :fn     (fn [s] (assoc-in s [:ui :functions :dynamics :current-tool] tk))
+                          :fn     (fn [s] (assoc-in s [:ui :functions :dynomics :current-tool] tk))
                           :action {:verb :select :type :tool :dont-record true}
                           })
                        nil)} icon))
         (map (juxt identity tools) tools-order)))
-     (div #js {:className "dynamics_current_tool_text" :title (get-in tools [current-tool :description])}
+     (div #js {:className "dynomics_current_tool_text" :title (get-in tools [current-tool :description])}
        (get-in tools [current-tool :name])))))
 
 (defn make-node-types-palette-component
   "Returns a component for the node types palette"
   ([{:keys [component state-updates]}]
    (om/component
-     (div #js {:className "dynamics_node_types"}
+     (div #js {:className "dynomics_node_types"}
       (map
         (fn [{:keys [id stability type]}]
-          (div #js {:className   (str "dynamics_node_type_selector")
+          (div #js {:className   (str "dynomics_node_type_selector")
                     :title       (str "Set selected nodes to " id "-" (name stability) "-" (name type))
                     :onMouseDown (fn [e]
                                    (put! state-updates
@@ -189,7 +200,7 @@
                                    nil)
                     }
              (if (sel1 :#prerender_svg)
-              (img #js {:src (render-to-image)})
+              (img #js {:width 32 :height 32 :src (render-to-image)})
               (str id))
             ;(svg #js {:width "100%" :height "100%" :viewBox "-1 -1 2 2"} (make-type-icon id))
             ))
@@ -197,13 +208,13 @@
 
 (defn make-edge-component
   "Returns a component for an edge"
-  [{[[nid1 nid2] [nx1 ny1] [nx2 ny2] [cx1 cx2] [cy1 cy2]] :points compatable? :compatable? node-scale :node-scale}]
+  [{[[nid1 nid2] [nx1 ny1] [nx2 ny2] [cx1 cx2] [cy1 cy2]] :points compatible? :compatible? node-scale :node-scale}]
   ;(println "make edge component" nid1 nid2)
   (om/component
     (path #js
               {
                :key (str "edge_" nid1 "_" nid2)
-               :className (str "dynamics_edge " (cond compatable? "dynamics_compatable_edge"))
+               :className (str "dynomics_edge " (cond compatible? "dynomics_compatible_edge"))
                :d
                (svg/to-svg-path
                  (map svg/make-bezier
@@ -222,42 +233,35 @@
              {
               :id (str "node_" id)
               :transform (trs [:t x y] [:s node-scale])
-              :className (str "dynamics_node_subgraph "
-                              (cond (selected-nodes path) "dynamics_node_selected"))
-              :onMouseOver (fn [e]
-                             ;(.log js/console (.. e -target -parentElement -transform))
-                             ;(set! (.. e -target -parentElement -transform) (mt :t x y :s 0.08 0.08))
-                             )
+              :className (str "dynomics_node_subgraph "
+                          (cond (selected-nodes path) "dynomics_node_selected"))
               :onMouseDown
                 (make-handler (to-coords "space_root") :mouse-down
                   {:msgs msgs :path path :id id :pan-zoom pz :current-tool current-tool})
               :onMouseUp (make-handler (to-coords "space_root") :mouse-up
                 {:msgs msgs :path path :pan-zoom pz :current-tool current-tool})
               }
-       (circle #js {:cx 0 :cy 0 :r
-                    ((fn []
-                       ;(println "node> " id)
-                      0.3) 0)
-                    :className (str "dynamics_node_selector_dot")
+       (circle #js {:cx 0 :cy 0 :r 0.3
+                    :className (str "dynomics_node_selector_dot")
                     })
         (text #js {:x -4 :y 4 :transform (trs [:s 0.05]) :fill "black"} (str pt))
        (rect #js {:x         0 :y 0 :width 1 :height 1
                   :transform (trs [:t -1 -1] [:s 2 2])
-                  :className (str "dynamics_node")
+                  :className (str "dynomics_node")
                   })
-       (g #js {:className "dynamics_node_connections"}
+       (g #js {:className "dynomics_node_connections"}
          (map
            (fn [{[cx cy] :position cid :id}]
              (g #js {
-                     :className "dynamics_node_connection"
+                     :className "dynomics_node_connection"
                      :id        (str "node_" id "_connection_" cid)
                      }
-               (line #js {:x1 0 :y1 0 :x2 cx :y2 cy :className "dynamics_node_connection_line"})
+               (line #js {:x1 0 :y1 0 :x2 cx :y2 cy :className "dynomics_node_connection_line"})
                (let [path [:space :nodes id :connections cid]]
                  (circle #js
                      {
                       :cx        0 :cy 0 :r 0.27
-                      :className (str "dynamics_node_connection_dot " (cond (selected-nodes path) "dynamics_node_selected"))
+                      :className (str "dynomics_node_connection_dot " (cond (selected-nodes path) "dynomics_node_selected"))
                       :transform (trs [:t cx cy])
                       :onMouseDown
                                  (make-handler
@@ -273,13 +277,13 @@
 
 (defn make-space-component
   "Returns a component for the phase-space editor"
-  ([{{:keys [nodes edges selected-nodes regions compatabilities node-scale] :as space} :space cf :cf
+  ([{{:keys [nodes edges selected-nodes regions compatibilities node-scale] :as space} :space cf :cf
     {current-tool :current-tool} :component
      msgs :msgs pz :pan-zoom :as state}]
    (om/component
-     (div #js {:className (str "dynamics_space " (if (= :dynamics cf) "selected_function" "hidden_function"))}
+     (div #js {:className (str "dynomics_space " (if (= :dynomics cf) "selected_function" "hidden_function"))}
        (svg #js {
-                 :className           "dynamics_space_svg"
+                 :className           "dynomics_space_svg"
                  :id                  "space"
                  :width               "100%" :height "100%" :viewBox "-1 -1 3 3"
                  :xmlns               "http://www.w3.org/2000/svg"
@@ -292,12 +296,23 @@
                  :onMouseMove (make-handler (to-coords "space_root") :mouse-move {:msgs msgs :pan-zoom pz :current-tool current-tool})
                  :onMouseDown (make-handler (to-coords "space_root") :mouse-down {:msgs msgs :pan-zoom pz :current-tool current-tool})
                  }
-           (rect #js {:x -16 :y -16 :width 32 :height 32 :className "dynamics_space_background"})
-           (rect #js {:x 0 :y 0 :width 1 :height 1 :className "dynamics_space_space"})
+           (rect #js {:x -16 :y -16 :width 32 :height 32 :className "dynomics_space_background"})
+           (rect #js {:x 0 :y 0 :width 1 :height 1 :className "dynomics_space_space"})
+           (comment (svg #js {
+                      :className           "dynomics_space_svg"
+                      :id                  "prerender_svg"
+                      :width               "1" :height "1" :viewBox "-1 -1 3 3"
+                      :xmlns               "http://www.w3.org/2000/svg"
+                      :xmlns:xlink         "http://www.w3.org/1999/xlink"
+                      :shape-rendering     "crispEdges"
+                      :preserveAspectRatio "xMidYMin"
+                      :zoomAndPan          false
+                      }
+              (make-type-icon 1 64 1.05 0)))
             (comment (cond regions
                    (map
                      (fn [region]
-                       (path #js {:className "dynamics_region"
+                       (path #js {:className "dynomics_region"
                                   :d (dc/to-closed-svg-path (mapcat identity region))}))
                         (dc/make-paths space))))
             ;(om/build test-component (select-keys state [:component]))
@@ -310,7 +325,7 @@
                      [cx1 cy1] (get-in nodes [nid1 :connections cid1 :position])
                      [cx2 cy2] (get-in nodes [nid2 :connections cid2 :position])
                      ] {:points [[nid1 nid2] [nx1 ny1] [nx2 ny2] [cx1 cx2] [cy1 cy2]]
-                      :compatable? (compatabilities [nid1 nid2])
+                      :compatible? (compatibilities [nid1 nid2])
                       :node-scale node-scale})
                 ) edges))
            (om/build-all make-node-component
@@ -324,19 +339,18 @@
            (comment (circle #js
                {
                 :cx        0 :cy 0 :r 0.01
-                :className (str "dynamics_cursor ")
+                :className (str "dynomics_cursor ")
                 :transform (trs (cons :t (get-in nodes [:cursor :position])))
                 }))))))))
 
 (defn make-prerender-component
   "Returns a component for offscreen rendering"
-  ([{{:keys [nodes edges selected-nodes regions node-scale] :as space} :space cf :cf
-     :as state}]
+  ([{{:keys [nodes edges selected-nodes regions node-scale] :as space} :space cf :cf :as state}]
    (om/component
      (div #js {:className "prerender_component"
                :id "prerender_component"}
        (svg #js {
-                 :className           "dynamics_space_svg"
+                 :className           "dynomics_space_svg"
                  :id                  "prerender_svg"
                  :width               "100%" :height "100%" :viewBox "-1 -1 3 3"
                  :xmlns               "http://www.w3.org/2000/svg"
@@ -346,6 +360,6 @@
                  :zoomAndPan false
                  }
          ;(map (fn [n] (make-type-icon 1 n 1 0.3)) (range 64 74))
-         (make-type-icon 1 64 1 0.3)
+         (make-type-icon 1 68 1.04 0.1)
          )))))
 

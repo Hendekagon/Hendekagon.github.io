@@ -189,7 +189,7 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
 
 (defn set-current-tool [tool-key state]
   (println "set current tool to " tool-key)
-  (assoc-in state [:ui :functions :dynamics :current-tool] tool-key))
+  (assoc-in state [:ui :functions :dynomics :current-tool] tool-key))
 
 (defn make-kb-path [kb]
   (if (keyword? kb)
@@ -197,7 +197,7 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
     kb))
 
 (defn add-keybindings
-  ([state] (add-keybindings state (get-in state [:ui :functions :dynamics :tools])))
+  ([state] (add-keybindings state (get-in state [:ui :functions :dynomics :tools])))
   ([state tools]
     (reduce
       (fn [r [k {f :fn kb :keybinding naym :name tools :tools}]]
@@ -256,15 +256,15 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
                      :app-version   (:app-version state)
                      :logo-text     (:logo-text state)
                      :dt            (:dt state)
-                     :current-tool  (get-in state [:ui :functions :dynamics :current-tool])
-                     :tools         (get-in state [:ui :functions :dynamics :tools])
-                     :tools-order   (get-in state [:ui :functions :dynamics :tools-order])
+                     :current-tool  (get-in state [:ui :functions :dynomics :current-tool])
+                     :tools         (get-in state [:ui :functions :dynomics :tools])
+                     :tools-order   (get-in state [:ui :functions :dynomics :tools-order])
                      :state-updates (get-in state [:messaging :state-updates])
                      })
       }
-     :dynamics
+     :dynomics
      {
-      :id           :dynamics
+      :id           :dynomics
       :name         "Dynamics"
       :om-builder   dynomics.space.ui/make-space-component
       :query
@@ -274,7 +274,7 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
                        :msgs            (get-in state [:messaging :message-channel])
                        :space           (:space state)
                        :cf              (get-in state [:ui :current-function])
-                       :component       (get-in state [:ui :functions :dynamics])
+                       :component       (get-in state [:ui :functions :dynomics])
                        :pan-zoom        (:pan-zoom state)
                        :last-node-added (:last-node-added state)
                        })
@@ -455,14 +455,14 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
 (defn left-right-top-view [state]
   (om/component
     (div #js {:className "ui"}
-         (comment (div #js {:className "offscreen"}
-                       (canvas #js {:id "canvas" :width 32 :height 32})
-                       (om/build du/make-prerender-component state)))
+      (comment (div #js {:className "offscreen"}
+         (canvas #js {:id "canvas" :width 32 :height 32})
+         (om/build du/make-prerender-component state)))
          (div #js {:className "main_ui"}
               (div #js {:className "left_component"}
                    (om/build make-function-selector-view state)
                    (om/build du/make-node-types-palette-component
-                             ((get-in state [:ui :functions :dynamics :query]) state))
+                             ((get-in state [:ui :functions :dynomics :query]) state))
                    (om/build make-history-selector-view state))
               (div #js {:className "right_component selectable"}
                    (map (fn [[id component]]

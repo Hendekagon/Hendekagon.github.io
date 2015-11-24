@@ -30,23 +30,23 @@ return cljs.core.conj.call(null,kp,new cljs.core.Keyword(null,"key","key",-15160
 }));
 });
 dynomics.ui.core.keyup = (function dynomics$ui$core$keyup(var_args){
-var args379919 = [];
-var len__25219__auto___379922 = arguments.length;
-var i__25220__auto___379923 = (0);
+var args1888769 = [];
+var len__25219__auto___1888772 = arguments.length;
+var i__25220__auto___1888773 = (0);
 while(true){
-if((i__25220__auto___379923 < len__25219__auto___379922)){
-args379919.push((arguments[i__25220__auto___379923]));
+if((i__25220__auto___1888773 < len__25219__auto___1888772)){
+args1888769.push((arguments[i__25220__auto___1888773]));
 
-var G__379924 = (i__25220__auto___379923 + (1));
-i__25220__auto___379923 = G__379924;
+var G__1888774 = (i__25220__auto___1888773 + (1));
+i__25220__auto___1888773 = G__1888774;
 continue;
 } else {
 }
 break;
 }
 
-var G__379921 = args379919.length;
-switch (G__379921) {
+var G__1888771 = args1888769.length;
+switch (G__1888771) {
 case 1:
 return dynomics.ui.core.keyup.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -56,7 +56,7 @@ return dynomics.ui.core.keyup.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(ar
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args379919.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args1888769.length)].join('')));
 
 }
 });
@@ -93,23 +93,23 @@ return k.call(null,cs);
 })),new cljs.core.Keyword(null,"dont-record","dont-record",577283045).cljs$core$IFn$_invoke$arity$1(cs)));
 });
 dynomics.ui.core.undo = (function dynomics$ui$core$undo(var_args){
-var args379926 = [];
-var len__25219__auto___379929 = arguments.length;
-var i__25220__auto___379930 = (0);
+var args1888776 = [];
+var len__25219__auto___1888779 = arguments.length;
+var i__25220__auto___1888780 = (0);
 while(true){
-if((i__25220__auto___379930 < len__25219__auto___379929)){
-args379926.push((arguments[i__25220__auto___379930]));
+if((i__25220__auto___1888780 < len__25219__auto___1888779)){
+args1888776.push((arguments[i__25220__auto___1888780]));
 
-var G__379931 = (i__25220__auto___379930 + (1));
-i__25220__auto___379930 = G__379931;
+var G__1888781 = (i__25220__auto___1888780 + (1));
+i__25220__auto___1888780 = G__1888781;
 continue;
 } else {
 }
 break;
 }
 
-var G__379928 = args379926.length;
-switch (G__379928) {
+var G__1888778 = args1888776.length;
+switch (G__1888778) {
 case 1:
 return dynomics.ui.core.undo.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -123,7 +123,7 @@ return dynomics.ui.core.undo.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arg
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args379926.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args1888776.length)].join('')));
 
 }
 });
@@ -146,23 +146,23 @@ return cs;
 
 dynomics.ui.core.undo.cljs$lang$maxFixedArity = 3;
 dynomics.ui.core.redo = (function dynomics$ui$core$redo(var_args){
-var args379933 = [];
-var len__25219__auto___379936 = arguments.length;
-var i__25220__auto___379937 = (0);
+var args1888783 = [];
+var len__25219__auto___1888786 = arguments.length;
+var i__25220__auto___1888787 = (0);
 while(true){
-if((i__25220__auto___379937 < len__25219__auto___379936)){
-args379933.push((arguments[i__25220__auto___379937]));
+if((i__25220__auto___1888787 < len__25219__auto___1888786)){
+args1888783.push((arguments[i__25220__auto___1888787]));
 
-var G__379938 = (i__25220__auto___379937 + (1));
-i__25220__auto___379937 = G__379938;
+var G__1888788 = (i__25220__auto___1888787 + (1));
+i__25220__auto___1888787 = G__1888788;
 continue;
 } else {
 }
 break;
 }
 
-var G__379935 = args379933.length;
-switch (G__379935) {
+var G__1888785 = args1888783.length;
+switch (G__1888785) {
 case 1:
 return dynomics.ui.core.redo.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -176,7 +176,7 @@ return dynomics.ui.core.redo.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arg
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args379933.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args1888783.length)].join('')));
 
 }
 });
@@ -210,23 +210,23 @@ return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"z"
  *   to the given function f
  */
 dynomics.ui.core.update_state = (function dynomics$ui$core$update_state(var_args){
-var args379940 = [];
-var len__25219__auto___379943 = arguments.length;
-var i__25220__auto___379944 = (0);
+var args1888790 = [];
+var len__25219__auto___1888793 = arguments.length;
+var i__25220__auto___1888794 = (0);
 while(true){
-if((i__25220__auto___379944 < len__25219__auto___379943)){
-args379940.push((arguments[i__25220__auto___379944]));
+if((i__25220__auto___1888794 < len__25219__auto___1888793)){
+args1888790.push((arguments[i__25220__auto___1888794]));
 
-var G__379945 = (i__25220__auto___379944 + (1));
-i__25220__auto___379944 = G__379945;
+var G__1888795 = (i__25220__auto___1888794 + (1));
+i__25220__auto___1888794 = G__1888795;
 continue;
 } else {
 }
 break;
 }
 
-var G__379942 = args379940.length;
-switch (G__379942) {
+var G__1888792 = args1888790.length;
+switch (G__1888792) {
 case 2:
 return dynomics.ui.core.update_state.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -236,7 +236,7 @@ return dynomics.ui.core.update_state.cljs$core$IFn$_invoke$arity$3((arguments[(0
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args379940.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args1888790.length)].join('')));
 
 }
 });
@@ -272,7 +272,7 @@ dynomics.ui.core.update_state.cljs$lang$maxFixedArity = 3;
  * Returns a blank default state
  */
 dynomics.ui.core.make_state = (function dynomics$ui$core$make_state(){
-return cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"space","space",348133475),new cljs.core.Keyword(null,"dont-record","dont-record",577283045),new cljs.core.Keyword(null,"keydown","keydown",-629268186),new cljs.core.Keyword(null,"dt","dt",-368444759),new cljs.core.Keyword(null,"history","history",-247395220),new cljs.core.Keyword(null,"keymap","keymap",-499605268),new cljs.core.Keyword(null,"app-name","app-name",-268811251),new cljs.core.Keyword(null,"keyup","keyup",-794526927),new cljs.core.Keyword(null,"vx","vx",-1685168462),new cljs.core.Keyword(null,"ui","ui",-469653645),new cljs.core.Keyword(null,"app-version","app-version",361554836),new cljs.core.Keyword(null,"keypath","keypath",1965534711),new cljs.core.Keyword(null,"action","action",-811238024),new cljs.core.Keyword(null,"version","version",425292698)],[dynomics.space.core.make_phase_space.call(null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"messaging","messaging",299215316)], null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"default","default",-1987822328),dynomics.ui.core.keydown], null),(0),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"action","action",-811238024),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"description","description",-1428560544),"-start-"], null)], null)], null),dynomics.ui.core.default_keymap.call(null),"Dynomics",new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"esc","esc",-1671924121),dynomics.ui.core.reset_keypath,new cljs.core.Keyword(null,"default","default",-1987822328),dynomics.ui.core.keyup], null),(1),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"mouse","mouse",478628972),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"vx","vx",-1685168462),(0),new cljs.core.Keyword(null,"vy","vy",-2018509997),(0),new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(0)], null),new cljs.core.Keyword(null,"current-function","current-function",1894670892),new cljs.core.Keyword(null,"dynamics","dynamics",-1480249074),new cljs.core.Keyword(null,"functions","functions",184951466),cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"appropriate-functions","appropriate-functions",-849142485),cljs.core.PersistentArrayMap.EMPTY], null),"0.1.0-alpha",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"keymap","keymap",-499605268)], null),cljs.core.PersistentArrayMap.EMPTY,(0)]);
+return cljs.core.PersistentHashMap.fromArrays([new cljs.core.Keyword(null,"space","space",348133475),new cljs.core.Keyword(null,"dont-record","dont-record",577283045),new cljs.core.Keyword(null,"keydown","keydown",-629268186),new cljs.core.Keyword(null,"dt","dt",-368444759),new cljs.core.Keyword(null,"history","history",-247395220),new cljs.core.Keyword(null,"keymap","keymap",-499605268),new cljs.core.Keyword(null,"app-name","app-name",-268811251),new cljs.core.Keyword(null,"keyup","keyup",-794526927),new cljs.core.Keyword(null,"vx","vx",-1685168462),new cljs.core.Keyword(null,"ui","ui",-469653645),new cljs.core.Keyword(null,"app-version","app-version",361554836),new cljs.core.Keyword(null,"keypath","keypath",1965534711),new cljs.core.Keyword(null,"action","action",-811238024),new cljs.core.Keyword(null,"version","version",425292698)],[dynomics.space.core.make_phase_space.call(null),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"messaging","messaging",299215316)], null),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"default","default",-1987822328),dynomics.ui.core.keydown], null),(0),new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"action","action",-811238024),new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"description","description",-1428560544),"-start-"], null)], null)], null),dynomics.ui.core.default_keymap.call(null),"Dynomics",new cljs.core.PersistentArrayMap(null, 2, [new cljs.core.Keyword(null,"esc","esc",-1671924121),dynomics.ui.core.reset_keypath,new cljs.core.Keyword(null,"default","default",-1987822328),dynomics.ui.core.keyup], null),(1),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"mouse","mouse",478628972),new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"vx","vx",-1685168462),(0),new cljs.core.Keyword(null,"vy","vy",-2018509997),(0),new cljs.core.Keyword(null,"x","x",2099068185),(0),new cljs.core.Keyword(null,"y","y",-1757859776),(0)], null),new cljs.core.Keyword(null,"current-function","current-function",1894670892),new cljs.core.Keyword(null,"dynomics","dynomics",-1896210766),new cljs.core.Keyword(null,"functions","functions",184951466),cljs.core.PersistentArrayMap.EMPTY,new cljs.core.Keyword(null,"appropriate-functions","appropriate-functions",-849142485),cljs.core.PersistentArrayMap.EMPTY], null),"0.1.0-alpha",new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"keymap","keymap",-499605268)], null),cljs.core.PersistentArrayMap.EMPTY,(0)]);
 });
 
 //# sourceMappingURL=core.js.map

@@ -189,7 +189,7 @@
     :ui
                         {
                          :mouse            {:vx 0 :vy 0 :x 0 :y 0}
-                         :current-function :dynamics
+                         :current-function :dynomics
                          :functions        {}
                          :appropriate-functions {}
                          }
