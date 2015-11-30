@@ -6,6 +6,9 @@
     [garden.core :refer [css]]
     [garden.types :as gtypes]))
 
+(def quadrant-types-colours
+  ["red" "green" "purple" "rgb(255,250,0)"])
+
 (defn inline-svg [svg]
   (let [e (hipo/create svg)]
     (str "url(\"data:image/svg+xml;utf8," (.replace (.-outerHTML e) (js/RegExp. "\"" "g") "'") "\")")))
@@ -48,14 +51,15 @@
    [:.selectable {:user-select "text" :-webkit-user-select "text" :-moz-user-select "text" :cursor "text"}]
    [:.top_component {:display         "flex" :flex-flow "row nowrap" :opacity "1.0"
                      :margin          0 :padding 0
-                     :justify-content "space-between"
+                     :justify-content "flex-start"
                      :color           "rgb(50,80,150)" :align-items "center"
                      :background      (get-in o [:top-component :background]) :width "100%" :height "64px"
                      :position        "fixed" :top "0px" :left "0px"}]
    [:.logo {:margin-left   "1em" :font-size "2em" :font-weight "bold" :background "rgb(255,10,0)" :color "rgb(255,255,255)"
             :border-radius "8px" :padding "0.15em"}]
    [:.headertitle {:color   "rgb(0,180,255)" :font-size "0.8em"
-                   :display :flex :align-items "center" :padding "0.2em" :margin-right "1em"}]
+                    :width "12em"
+                   :display :flex :align-items "center" :padding "0.2em" :margin-left "1em"}]
    [:.main_ui {:display    "flex" :flex-flow "row nowrap" :justify-content "space-between" :align-items "flex-start"
                :position   "absolute" :top "64px" :width "100%"
                :background (get-in o [:main-ui :background])}]
@@ -73,11 +77,20 @@
                               :background      "rgb(100,190,255)" :margin-top "0.5em"}]
    [:.function_selector_item:first-child {:margin-top 0}]
    [:.function_selector_item:hover {:background "rgb(100,210,255)"}]
-   [:.history_selector {:margin-top 0 :padding "0em" :display "flex" :flex-flow "column nowrap"
-                        :padding-left "1em"
+   [:.history_selector_visible {:display :flex :flex-flow "column nowrap"}]
+   [:.history_selector_hidden {:display :none}]
+   [:.history_selector
+    {:margin-top 0 :padding "0em" :display "flex" :flex-flow "column nowrap"
+                        :cursor "pointer"
                         :background (get-in o [:history-selector :background]) :font-size "0.8em"}]
+   [:.history_selector_text { :padding "1em" :justify-content "center"
+                              :font-size "0.8em" :cursor "pointer"
+                              :background "rgb(30,30,30)"
+                              :display :flex :color :white}]
+   [:.history_selector_text:hover {:background "rgb(50,50,50)"}]
+   [:.history_selector:hover {:background "rgb(50,50,50)"}]
    [:.history_selector_item {:white-space "pre" :display "flex"
-                             :justify-content "flex-start" :align-items "center"
+                             :justify-content "flex-start" :align-items "flex-start"
                              :padding     "1em" :cursor "pointer"
                              ;:background "rgb(50,50,50)"
                              :color (:color o)
@@ -85,15 +98,7 @@
                              :font-size "0.5em"
                              :border      "0px solid rgb(100,100,100)" :border-top :none
                              :text-overflow "ellipsis" :overflow "hidden"}]
-   [".hhistory_selector>.history_selector_item:first-child" {:border-top              "0px solid rgb(100,100,100)"
-                                                             :border-top-left-radius  (str border-radius "px")
-                                                             :border-top-right-radius (str border-radius "px")
-                                                             }]
-   [".hhistory_selector>.history_selector_item:last-child" {
-                                                            :border-bottom-left-radius  (str border-radius "px")
-                                                            :border-bottom-right-radius (str border-radius "px")
-                                                            }]
-   [:.history_selector_item:hover {:opacity 1.0 :font-size "1em" :padding "0.6em"}]
+   [:.history_selector_item:hover {:background "rgb(50,50,50)"}]
    [:.historical {:font-style "italic"}]
    [:input:focus {:outline 0}]
    [:.pending {:font-size "1.2em" :display :flex :transition "font-size 0.1s ease"}]
@@ -159,30 +164,35 @@
                       :font-family "monospace"}]
    [:.offscreen {:display :absolute
     :overflow :hidden :width "64px" :height "64px"}]
-   [:.trajectory_group {:opacity 1}]
-   [:.trajectory_path {:stroke "rgba(255,255,255,1)" :stroke-width 1 :fill "none"}]
+   [:.trajectory_group {:opacity 1 :cursor "pointer"}]
+   [:.trajectory_path {:stroke "rgba(255,255,255,1)" :stroke-width 2 :fill "none"}]
    [:.trajectory_arrowhead {:stroke "none" :fill "rgba(255,255,255,1)"}]
    [:.dynomics_space {:padding-top "0em" :cursor "default" :padding-left "0em"
                       :padding-right "0em" :height "100%" :width "93%" :position "fixed"}]
    [:.dynomics_space_space {:fill
-                            "rgb(200,230,250)"
-                            ;  "black"
+                            ;"rgb(200,230,250)"
+                              "rgb(60,60,60)"
                             }]
    [:.dynomics_space_background {:fill "rgb(50,50,50)"}]
    [:.dynomics_node {:fill "rgb(255,130,200)" :opacity 0.0 :display :none}]
    [:.dynomics_node_connections {:opacity 1}]
    [:.dynomics_node_subgraph:hover>.dynomics_node {:opacity 0}]
    [:.dynomics_node_subgraph:hover>.dynomics_node_connections {:opacity 1}]
-   [:.dynomics_node_connection_line {:stroke "rgb(130,130,130)" :stroke-width 0.07}]
-   [:.dynomics_node_connection_dot {:fill "rgb(90,90,90)"}]
+   [:.dynomics_node_connection_line {:stroke "rgb(255,255,255)" :stroke-width 0.07}]
+   [:.dynomics_node_connection_dot {:fill "rgb(255,255,255)"}]
    [:.dynomics_node_selector_dot {:opacity 0}]
    [:.dynomics_node_selected>.dynomics_node_selector_dot {:fill "rgb(255,150,70)" :opacity 1}]
-   [:.dynomics_node_selected {:fill "rgb(255,150,70)" :opacity 0.5}]
+   [:.dynomics_node_selected {:fill "rgb(255,150,70)" :opacity 1}]
    [:.dynomics_node_connection {:opacity 0.5}]
    [:.dynomics_node_connection:hover {:opacity 1}]
-   [:.dynomics_edge {:stroke "rgb(50,50,50)" :stroke-width 0.001 :fill "none"}]
+   [:.dynomics_edge {:stroke "rgb(255,255,255)" :stroke-width 0.001 :fill "none"}]
    [:.dynomics_compatible_edge {:stroke "rgb(100,150,100)" :stroke-width 0.002 :fill "none"}]
    [:.dynomics_region {:stroke "rgb(50,50,200)" :stroke-width 0.001 :fill "rgb(150,200,255)" :opacity 0.3}]
+   [:.dynomics_open_region {:stroke "none"  :opacity 0.5}]
+   [:.dynomics_open_region_type_1 {:fill "red"}]
+   [:.dynomics_open_region_type_2 {:fill "rgb(255,250,0)"}]
+   [:.dynomics_open_region_type_3 {:fill "green"}]
+   [:.dynomics_open_region_type_4 {:fill "purple"}]
    [:.dynomics_toolname {:font-size "1" :white-space "pre"}]
    [:.dynomics_cursor {:fill "rgb(0,0,0)" :opacity 0.5}]
    [:.dynomics_tool_selectors {:display :flex :flex-flow "row wrap" :border :none
@@ -192,15 +202,16 @@
                            :justify-content "space-around"
                            :padding-left "0.5em"
                            :padding-right "0.5em"
-                           :padding-bottom "0.5em"}]
+                           :padding-bottom "0.5em"
+                           :cursor "pointer"}]
    [:.dynomics_node_type_selector {:display :flex :font-size "1em"
-                                   :width "32px"
-                                   :height "32px"
+                                   ;:width "32px"
+                                   ;:height "32px"
                                    :padding "0em" :opacity 0.7
                                    :justify-content "center"
                                    :align-items "center"
                                    :color "white" :cursor "pointer"}]
-   [:.dynomics_node_type_selector:hover {:opacity 1 :background "rgb(100,100,100)"}]
+   [:.dynomics_node_type_selector:hover {:opacity 1 :cursor "pointer" :background "rgb(100,100,100)"}]
    [:.dynomics_tool_selector  {:display :flex
                                :border :none :font-size "20px"
                                :padding "4px"

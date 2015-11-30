@@ -111,44 +111,49 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
   "Return a component to display a list
   of historical states which select a historical
   state on mouseover"
-  ([{{:keys [state-updates]} :messaging :as state} owner]
+  ([{{:keys [state-updates]} :messaging sh :show-history :as state} owner]
     (om/component
-      (div #js {:className "history_selector"}
-        (map
-          (fn [{:keys [action version] :as history-item}]
-            (let
-              [
-                previous-action  (:action (get (:history history-item) (dec (count (:history history-item)))))
-                previous-version (:version (last (:history history-item)))
-              ]
-              (div #js
-                {
-                  :className (str "history_selector_item "
-                    (if (= :history-item (:type previous-action)) "historical" ""))
-                  :id        (str "history_version_" previous-version)
-                  :onMouseOver
-                    (fn [e] (put! state-updates
-                      {
-                      :fn     (fn [s] (merge (om/value history-item) (select-keys s (conj (:dont-record s) :history))))
-                      :action {:desccription (str (:description previous-action))
-                      :verb :select :type :history-item :id version}
-                      }) nil)
-                  ; see https://github.com/reagent-project/reagent/issues/78
-                  ; for why that handler returns nil
-                }
-                (:description previous-action)
-              )))
-        (filter (fn [hi] (:description (:action (get (:history hi) (dec (count (:history hi)))))))
-          (reverse (conj (:history state) state))))))))
+      (div #js {:className "history_selector"
+                :onClick
+                (fn [e] (put! state-updates
+                              {:fn (fn [s] (update-in s [:show-history] not))}))}
+         (div #js {:className "history_selector_text"} "History")
+         (div #js {:className (if sh "history_selector_visible" "history_selector_hidden")}
+          (map
+            (fn [{:keys [action version] :as history-item}]
+              (let
+                [
+                 previous-action (:action (get (:history history-item) (dec (count (:history history-item)))))
+                 previous-version (:version (last (:history history-item)))
+                 ]
+                (div #js
+                         {
+                          :className (str "history_selector_item "
+                                          (if (= :history-item (:type previous-action)) "historical" ""))
+                          :id (str "history_version_" previous-version)
+                          :onMouseOver
+                          (fn [e] (put! state-updates
+                                        {
+                                         :fn (fn [s] (merge (om/value history-item) (select-keys s (conj (:dont-record s) :history))))
+                                         :action {:desccription (str (:description previous-action))
+                                                  :verb :select :type :history-item :id version}
+                                         }) nil)
+                          ; see https://github.com/reagent-project/reagent/issues/78
+                          ; for why that handler returns nil
+                          }
+                     (:description previous-action)
+                     )))
+            (filter (fn [hi] (:description (:action (get (:history hi) (dec (count (:history hi)))))))
+                    (reverse (conj (:history state) state)))))))))
 
 (defn make-header-view
   "Returns a component for the top header"
   [{:keys [logo-text app-name app-version] :as state}]
   (om/component
     (div #js {:className "top_component"}
-      (du/make-tools-palette-component state)
       (cond logo-text (div #js {:className "logo"} logo-text))
-      (cond app-name (div #js {:className "headertitle"} (str app-name " " app-version))))))
+      (cond app-name (div #js {:className "headertitle"} (str app-name " " app-version)))
+      (du/make-tools-palette-component state))))
 
 (defn evaluate [s sexp f]
   (eval (empty-state)
@@ -455,9 +460,7 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
 (defn left-right-top-view [state]
   (om/component
     (div #js {:className "ui"}
-      (comment (div #js {:className "offscreen"}
-         (canvas #js {:id "canvas" :width 32 :height 32})
-         (om/build du/make-prerender-component state)))
+         (comment (om/build du/make-prerender-component state))
          (div #js {:className "main_ui"}
               (div #js {:className "left_component"}
                    (om/build make-function-selector-view state)

@@ -14,10 +14,10 @@
   "Returns a nested list of connections (paths to node connections)
   from the given edges [[node1 node2] [node3 node4]
   and edgez, a set of connection edges}"
-  [edges edgez]
+  [edgez edges]
   (let
     [ebn (group-by (fn [[[_ _ nid1 _ _] [_ _ nid2 _ _]]] (vec (sort [nid1 nid2]))) edgez)]
-    (remove nil? (map (comp ebn vec sort) edges))))
+    (distinct (remove nil? (map (comp first ebn vec sort) edges)))))
 
 (defn as-edges [m]
   (map

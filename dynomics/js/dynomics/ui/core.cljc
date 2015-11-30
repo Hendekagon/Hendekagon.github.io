@@ -179,7 +179,7 @@
    {
     :app-name "Dynomics"
     :app-version "0.1.0-alpha"
-    :dont-record        [:messaging]
+    :dont-record        [:messaging :show-history]
     :version            0
     :dt 0
     :action             {}

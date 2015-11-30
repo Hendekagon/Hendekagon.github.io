@@ -12,13 +12,13 @@
   (:require
     [dynomics.space.core :as dc]
     [dynomics.ui.svg :as svg :refer [trs]]
-    [dynomics.ui.css :as uicss]
+    [dynomics.ui.css :as uicss :refer [quadrant-types-colours]]
     [cljs.core.async :as async :refer [put!]]
     [dommy.core :as dommy :refer-macros [sel sel1]]
     [om.core :as om :include-macros true]
-    [om.dom :as dom :refer [div img svg g path text rect circle line span canvas input a] :include-macros true]
-    [panzoom :as pz]
-    ))
+    [om.dom :as dom :refer [div img svg defs linearGradient radialGradient stop g path text rect circle line span canvas input a] :include-macros true]
+    [panzoom :as pz])
+    )
 
 (defn to-coords
   "Returns a function that converts local coords to
@@ -65,18 +65,23 @@
   (.enablePan pz) (.enableZoom pz))
 
 (defn render-to-image
-  ([] (render-to-image :#prerender_svg))
-  ([svg-selector]
+  ([] (render-to-image "all"))
+  ([id]
     (let [
          up (uicss/unique-css-properties (uicss/css-rules (uicss/main-ui-style-defaults)))
-         svg (sel1 svg-selector)
+         svg (sel1 (str "#prerender_svg_" id))
          svgp (.cloneNode (.-parentElement svg) true)
-         canvas (sel1 :#canvas)
+         canvas (sel1 (str "#prerender_canvas_" id))
          ccss (.getComputedStyle js/window svg)
          ni1 (.createNodeIterator js/document svg (.-SHOW_ELEMENT js/NodeIterator) nil)
          ni2 (.createNodeIterator js/document (.-firstElementChild svgp) (.-SHOW_ELEMENT js/NodeIterator) nil)
          ]
-     (doseq [[i j] (map vector (take-while identity (repeatedly #(.nextNode ni1))) (take-while identity (repeatedly #(.nextNode ni2))))]
+     (doseq [[i j]
+      (map vector
+        (take-while identity
+          (repeatedly #(.nextNode ni1)))
+        (take-while identity
+          (repeatedly #(.nextNode ni2))))]
        (.removeAttribute j "id")
        (.removeAttribute j "class")
        (.removeAttribute j "data-reactid")
@@ -110,7 +115,7 @@
         a3 [0 -2]
         E interpose]
         (path #js {:className "trajectory_arrowhead"
-                   :transform (trs  [:t ox oy] [:s 2] [:r a])
+                   :transform (trs  [:t ox oy] [:s 4] [:r a])
                    :d         (apply str (concat "M " (E " " a1) " L " (E " " a2) " L " (E " " a3) " z"))})))
 
 (defn make-trajectory-group
@@ -125,22 +130,93 @@
              (concat ["M "] (interpose " " (first trajectory))) (rest trajectory)))})
      (cond with-arrowhead (arrowhead (vec trajectory))))))
 
+(defn saddle-2
+  ([start init-points samples]
+    (dc/ds-evolution samples
+      {
+       :f (fn [[x y]] (map + [x y] (map * [0.04 0.04] [(* -1 x) y])))
+       :points
+        [[24 0] [-24 0] [0 8] [0 -8] [24 12] [-24 12] [-24 -12] [24 -12]]})))
+
+(defn saddle-3
+  ([start init-points samples]
+    (dc/ds-evolution samples
+      {
+       :f (fn [[x y]] (map + [x y] (map * [0.04 0.04] [x (* -1 y)])))
+       :points
+        [[8 0] [-8 0] [0 24] [0 -24] [12 24] [-12 24] [-12 -24] [12 -24]]})))
+
+(defn saddle-4
+  ([start init-points samples]
+    (dc/ds-evolution samples
+      {
+       :f (fn [[x y]] (map + [x y] (map * [0.04 0.04] [y x])))
+       :points
+        [[24 -12] [-24 12] [-12 24] [12 -24]
+        [8 8] [-8 -8] [-16 16] [16 -16]]})))
+
+(defn saddle-5
+  ([start init-points samples]
+    (dc/ds-evolution samples
+      {
+       :f (fn [[x y]] (map + [x y] (map * [-0.04 -0.04] [y x])))
+       :points
+        [[24 12] [-24 -12] [12 24] [-12 -24]
+        [16 16] [-16 -16] [-8 8] [8 -8]]
+        })))
+
+(defn spiral
+  ([samples expansion rotation] (spiral [1 0] 1 samples expansion rotation))
+  ([start init-points samples expansion rotation]
+   (dc/ds-evolution samples
+     (assoc (dc/make-ds (dc/p2c [expansion rotation]))
+       :points
+       (first (dc/ds-evolution init-points
+                (assoc (dc/make-ds (dc/p2c [1 dc/PIb4]))
+                  :points [start])))))))
+
+(defn get-icon-fn [type-id]
+  (get {
+        0 (partial spiral [32 0] 8 16 0.97 0)
+        1 (partial spiral [10 0] 8 16 1.045 0)
+        2 (partial saddle-2 [24 0] 8 20)
+        3 (partial saddle-3 [24 0] 8 20)
+        4 (partial saddle-4 [24 0] 8 20)
+        5 (partial saddle-5 [24 0] 8 20)
+        6 (partial spiral 32 1.1 -0.50)
+        7 (partial spiral 32 1.1 0.50)
+        8 (partial spiral [32 0] 1 32 0.97 -0.42)
+        9 (partial spiral [32 0] 1 32 0.97 0.42)
+        }
+        type-id (partial spiral 155 1.02 0.1)))
+
 (defn make-type-icon
-  ([type-id] (make-type-icon type-id 78 0 0.3))
-  ([type-id n-samples expansion rotation]
+  ([type-id]
+    (println "icon for type " type-id)
+    (rect :js {:x -1 :y -1 :width 3 :height 3 :fill "red"})
     (g #js {:id (str "dynomics_type_icon_" type-id)
             :className (str "dynomics_type_icon " (str "type_icon_" type-id))
             :transform (trs [:t 0.5 0.5] [:s 0.05])}
-      (map
-        (comp (partial make-trajectory-group true) (partial drop 50))
-        (dc/ds-evolution n-samples
-          (assoc (dc/make-ds (dc/p2c [expansion rotation]))
-            :points
-            ;(dc/random-points 4)
-            (first (dc/ds-evolution 8 (dc/make-ds (dc/p2c [1 dc/PIb4]))))
-            )
-          ;(dc/make-ds2 (fn [p]) 8)
-          )))))
+      (map (partial make-trajectory-group true) ((get-icon-fn type-id))))))
+
+(defn make-prerender-icon
+  [id type]
+  (div
+    #js {}
+    (canvas #js {:id (str "prerender_canvas_" id) :width 32 :height 32})
+    (div #js {:classsName "dynomics_node_type_selector"
+             :id (str "prerender_svg_box_" id)}
+        (svg #js {
+                  :classsName "dynomics_space_svg"
+                  :id (str "prerender_svg_" id)
+                  :width "32px" :height "32px" :viewBox "-1 -1 3 3"
+                  :xmlns "http://www.w3.org/2000/svg"
+                  :xmlns:xlink "http://www.w3.org/1999/xlink"
+                  :shape-rendering "crispEdges"
+                  :preserveAspectRatio "xMidYMin"
+                  :zoomAndPan false
+                  }
+             (make-type-icon id)))))
 
 ; need to account for combinations of subpaths
 (defn make-paths [{:keys [nodes edges regions node-scale] :as space}]
@@ -182,29 +258,50 @@
      (div #js {:className "dynomics_current_tool_text" :title (get-in tools [current-tool :description])}
        (get-in tools [current-tool :name])))))
 
+(defn make-node-types-cached-component
+  "Returns a node-type component for the node types palette,
+  which can prerender its SVG to a canvas & therefore
+  cache the resulting image, to save on components in the DOM if need be."
+  ([{:keys [id type]} owner]
+   (reify
+     om/IInitState
+     (init-state [this]
+       (if-let [d (js/localStorage.getItem (str "dataurl_" id))]
+        {:dataurl d}
+        {:dataurl nil}))
+     om/IRender
+     (render [this]
+       (if-let [dataurl (:dataurl (om/get-state owner))]
+         (img #js {:width 32 :height 32 :src dataurl})
+         (make-prerender-icon id type)))
+     om/IDidMount
+     (did-mount [this]
+       (cond (not (:dataurl (om/get-state owner)))
+        (let [dataurl (render-to-image id)]
+          (om/set-state! owner {:dataurl dataurl})
+          (js/localStorage.setItem (str "dataurl_" id) dataurl)))))))
+
 (defn make-node-types-palette-component
   "Returns a component for the node types palette"
-  ([{:keys [component state-updates]}]
-   (om/component
-     (div #js {:className "dynomics_node_types"}
-      (map
-        (fn [{:keys [id stability type]}]
-          (div #js {:className   (str "dynomics_node_type_selector")
-                    :title       (str "Set selected nodes to " id "-" (name stability) "-" (name type))
-                    :onMouseDown (fn [e]
-                                   (put! state-updates
-                                     {
-                                      :fn     (get-in component [:tools :node-types :tools id :fn])
-                                      :action {:verb :set :type :node-type :id id :description (str "Node type " id)}
-                                      })
-                                   nil)
-                    }
-             (if (sel1 :#prerender_svg)
-              (img #js {:width 32 :height 32 :src (render-to-image)})
-              (str id))
-            ;(svg #js {:width "100%" :height "100%" :viewBox "-1 -1 2 2"} (make-type-icon id))
-            ))
-        (vals dc/node-types))))))
+  ([{:keys [component state-updates] :as state}]
+   (reify
+     om/IRender
+     (render [this]
+      (div #js {:className "dynomics_node_types"}
+           (map
+             (fn [{:keys [id stability type]}]
+               (div #js {:className (str "dynomics_node_type_selector")
+                         :title (str "Set selected nodes to " id "-" (name stability) "-" (name type))
+                         :onMouseDown (fn [e]
+                                        (put! state-updates
+                                              {
+                                               :fn (get-in component [:tools :node-types :tools id :fn])
+                                               :action {:verb :set :type :node-type :id id :description (str "Node type " id)}
+                                               })
+                                        nil)
+                         }
+                    (om/build make-node-types-cached-component {:id id :type type :key (str "ntp" id)} {:key :key})))
+             (vals dc/node-types)))))))
 
 (defn make-edge-component
   "Returns a component for an edge"
@@ -220,6 +317,26 @@
                  (map svg/make-bezier
                       [[[nx1 ny1] [(+ nx1 (* node-scale cx1)) (+ ny1 (* node-scale cy1))]]
                        [[nx2 ny2] [(+ nx2 (* node-scale cx2)) (+ ny2 (* node-scale cy2))]]]))})))
+
+(defn make-open-region-component
+  ([{node-id :node-id quadrant-type :quadrant-type [qx qy] :quadrant-vector
+    [p1 p2 {[x y] :point [[cx cy]] :control-points :as p3} p4] :points}]
+    ;(println "  or " node-id "type" quadrant-type " > " [qx qy])
+    (om/component
+      (g #js {}
+         (comment (defs #js {}
+                (radialGradient #js
+                                    {:id (str "qg_" node-id "_" quadrant-type)
+                                     :gradientUnits "userSpaceOnUse"
+                                     :cx x :cy y :r 0.04
+                                     }
+                                (stop #js {:offset "0" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "1"})
+                                (stop #js {:offset "0.5" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0.25"})
+                                (stop #js {:offset "0.75" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0.125"})
+                                (stop #js {:offset "1" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0"}))))
+        (path #js {:className (str "dynomics_open_region " (str "dynomics_open_region_type_" quadrant-type))
+                   ;:fill (str "url(#" (str "qg_" node-id  "_" quadrant-type) ")")
+                  :d (str (svg/to-svg-path [p1 p2]) (svg/to-svg-path [(assoc p3 :ml "L") p4]) "z")})))))
 
 (defn make-node-component
   "Returns a component for a node and its connections"
@@ -277,7 +394,7 @@
 
 (defn make-space-component
   "Returns a component for the phase-space editor"
-  ([{{:keys [nodes edges selected-nodes regions compatibilities node-scale] :as space} :space cf :cf
+   ([{{:keys [nodes edges selected-nodes regions compatibilities graph node-scale] :as space} :space cf :cf
     {current-tool :current-tool} :component
      msgs :msgs pz :pan-zoom :as state}]
    (om/component
@@ -316,18 +433,13 @@
                                   :d (dc/to-closed-svg-path (mapcat identity region))}))
                         (dc/make-paths space))))
             ;(om/build test-component (select-keys state [:component]))
-           (om/build-all make-edge-component
-             (map
-              (fn [[[_ _ nid1 _ cid1] [_ _ nid2 _ cid2]]]
-              (let [
-                     [nx1 ny1] (get-in nodes [nid1 :position])
-                     [nx2 ny2] (get-in nodes [nid2 :position])
-                     [cx1 cy1] (get-in nodes [nid1 :connections cid1 :position])
-                     [cx2 cy2] (get-in nodes [nid2 :connections cid2 :position])
-                     ] {:points [[nid1 nid2] [nx1 ny1] [nx2 ny2] [cx1 cx2] [cy1 cy2]]
-                      :compatible? (compatibilities [nid1 nid2])
-                      :node-scale node-scale})
-                ) edges))
+            (om/build-all make-open-region-component
+                          (mapcat (partial dc/make-open-regions node-scale) (dc/edge-pairs-by-node space)))
+            (om/build-all make-edge-component
+                          (map (fn [e]
+                                  (assoc (dc/with-compatibilities e compatibilities)
+                                    :node-scale node-scale))
+                                     (map (partial dc/edge-points nodes) edges)))
            (om/build-all make-node-component
              (map (fn [node] (merge (select-keys state [:component :msgs]) {:node node :key (str "node_" (:id node))
                                :node-scale node-scale :selected-nodes selected-nodes :pan-zoom pz}))
@@ -348,10 +460,11 @@
   ([{{:keys [nodes edges selected-nodes regions node-scale] :as space} :space cf :cf :as state}]
    (om/component
      (div #js {:className "prerender_component"
-               :id "prerender_component"}
+               :id "prerender_component_all"}
+       (canvas #js {:id "prerender_canvas_all" :width 64 :height 64})
        (svg #js {
                  :className           "dynomics_space_svg"
-                 :id                  "prerender_svg"
+                 :id                  "prerender_svg_all"
                  :width               "100%" :height "100%" :viewBox "-1 -1 3 3"
                  :xmlns               "http://www.w3.org/2000/svg"
                  :xmlns:xlink         "http://www.w3.org/1999/xlink"
@@ -359,7 +472,6 @@
                  :preserveAspectRatio "xMidYMin"
                  :zoomAndPan false
                  }
-         ;(map (fn [n] (make-type-icon 1 n 1 0.3)) (range 64 74))
-         (make-type-icon 1 68 1.04 0.1)
+         (make-type-icon 1)
          )))))
 

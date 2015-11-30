@@ -36,23 +36,23 @@ throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_st
 return (el.childNodes[i]);
 });
 hipo.dom.children = (function hipo$dom$children(var_args){
-var args1881367 = [];
-var len__25219__auto___1881370 = arguments.length;
-var i__25220__auto___1881371 = (0);
+var args643408 = [];
+var len__25269__auto___643411 = arguments.length;
+var i__25270__auto___643412 = (0);
 while(true){
-if((i__25220__auto___1881371 < len__25219__auto___1881370)){
-args1881367.push((arguments[i__25220__auto___1881371]));
+if((i__25270__auto___643412 < len__25269__auto___643411)){
+args643408.push((arguments[i__25270__auto___643412]));
 
-var G__1881372 = (i__25220__auto___1881371 + (1));
-i__25220__auto___1881371 = G__1881372;
+var G__643413 = (i__25270__auto___643412 + (1));
+i__25270__auto___643412 = G__643413;
 continue;
 } else {
 }
 break;
 }
 
-var G__1881369 = args1881367.length;
-switch (G__1881369) {
+var G__643410 = args643408.length;
+switch (G__643410) {
 case 1:
 return hipo.dom.children.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -62,7 +62,7 @@ return hipo.dom.children.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(argumen
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args1881367.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args643408.length)].join('')));
 
 }
 });
@@ -88,17 +88,17 @@ var cel = fel;
 var acc = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [cel], null);
 while(true){
 var nel = cel.nextSibling;
-if(cljs.core.truth_((function (){var and__24149__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
-if(and__24149__auto__){
+if(cljs.core.truth_((function (){var and__24199__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
+if(and__24199__auto__){
 return nel;
 } else {
-return and__24149__auto__;
+return and__24199__auto__;
 }
 })())){
-var G__1881374 = nel;
-var G__1881375 = cljs.core.conj.call(null,acc,nel);
-cel = G__1881374;
-acc = G__1881375;
+var G__643415 = nel;
+var G__643416 = cljs.core.conj.call(null,acc,nel);
+cel = G__643415;
+acc = G__643416;
 continue;
 } else {
 return acc;
@@ -157,18 +157,18 @@ if(!((n < (0)))){
 throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"not","not",1044554643,null),cljs.core.list(new cljs.core.Symbol(null,"neg?","neg?",-1902175577,null),new cljs.core.Symbol(null,"n","n",-2092305744,null)))))].join('')));
 }
 
-var n__25064__auto__ = n;
+var n__25114__auto__ = n;
 var _ = (0);
 while(true){
-if((_ < n__25064__auto__)){
+if((_ < n__25114__auto__)){
 if(typeof el.remove !== 'undefined'){
 el.lastChild.remove();
 } else {
 el.removeChild(el.lastChild);
 }
 
-var G__1881376 = (_ + (1));
-_ = G__1881376;
+var G__643417 = (_ + (1));
+_ = G__643417;
 continue;
 } else {
 return null;

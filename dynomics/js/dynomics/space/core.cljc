@@ -6,7 +6,8 @@
   (:require
     [loom.graph :as lg]
     [loom.alg :as la]
-    [dynomics.space.graph :refer [as-connections]]
+    [dynomics.ui.svg :as svg]
+    [dynomics.space.graph :refer [as-connections simplify-edges]]
     [clojure.set :as cs]))
 
 (def P partial)
@@ -50,6 +51,8 @@
   (map (fn [[p1 p2]] (map (partial * 0.5) (map + p1 p2))) (partition 2 1 points)))
 
 (defn dot [& x] (reduce + (apply map * x)))
+
+(defn sqrd [v] (dot v v))
 
 (defn to-local
   ([[x y] [_ _ nid _ cid] {node-scale :node-scale :as space}]
@@ -164,10 +167,19 @@
   connected by the same connectors, as it doesn't take into account
   that the nodes themselves are above and below eachother
   "
-  ([{r1 :node-type p1 :position} {r2 :node-type p2 :position}]
-   (map map
-    (map (fn [i] (get-in node-types [i :quadrants])) [r1 r2])
-    (map (J (P c* [1 -1]) (P c* [1 1])) (map (P map (C unit round double)) [p1 p2])))))
+  ([{r1 :node-type p1 :position}]
+   (map ((fn [i] (get-in node-types [i :quadrants])) r1)
+     ((C (J (P c* [0 -1]) (P c* [0 1]))
+      (P map (C unit round double))) p1))))
+
+(def quadrant-vectors-by-connectors
+  (zipmap
+    (take 4 (map (P apply hash-set) (partition 2 1 (cycle (range 4)))))
+    (iterate (P c* [0 -1]) [1 1])))
+
+(defn quadrant-types-by-connector-pair
+  ([node-type quadrant-vector]
+    (get-in node-types [node-type :quadrants quadrant-vector])))
 
 ; hey as well as just a boolean, we should also provide the kind of match
 ; need a check for [nil nil] here
@@ -194,6 +206,52 @@
       :connections default-connections
     }))
 
+(defn just-ids [nodes] (into #{} (map (fn [[_ _ id]] id) nodes)))
+
+(defn quadrant-info [nodes [_ _ nid _ cid]]
+  {:node-type (get-in nodes [nid :node-type])
+   :position (get-in nodes [nid :connections cid :position])})
+
+(defn add-compatibility-info
+  "
+  Returns the given state with a map of node-node compatibilities added,
+  of the form {[nodeid1 nodeid2] true [nodeid4 nodeid5] false}
+  "
+  [{{:keys [nodes selected-nodes]} :space :as state}]
+  (assoc-in state [:space :compatibilities (just-ids selected-nodes)]
+    (compare-quadrants
+      (map quadrants-types-by-position
+        (map (P quadrant-info nodes) selected-nodes)))))
+
+(defn connections-of-node
+  ([graph edges id]
+    (println "  con " id (lg/successors graph id))
+   (let [cbn (group-by first (map (P sort-by (fn [x] (if (== id (nth x 2)) 0 1))) edges))]
+    (remove (C nil? last)
+      (map (C first cbn)
+        (map (fn [c] [:space :nodes id :connections c]) (range 4)))))))
+
+(defn add-connections-by-node
+  [{{:keys [nodes edges graph]} :space :as state}]
+      (println "  nodes " (count (lg/nodes graph)))
+    (assoc-in state [:space :connections-by-node]
+      (zipmap (keys nodes) (map (P connections-of-node graph edges) (keys nodes)))))
+
+; TODO use graph traversal on selected-nodes to save on connected-nodes
+(defn update-compatibility-info
+  "Following a node-type change, update the
+  compatibility info for its connections"
+  ([{{:keys [selected-nodes]} :space :as state}]
+    (reduce update-compatibility-info state (just-ids selected-nodes)))
+  ([{{:keys [graph edges nodes]} :space :as state} id]
+    (reduce
+      (fn [s edge]
+        (assoc-in s [:space :compatibilities (just-ids edge)]
+          (compare-quadrants
+            (map quadrants-types-by-position
+              (map (P quadrant-info nodes) edge)))))
+      state (connections-of-node graph edges id))))
+
 (defn add-node
   "Adds a new node at the given mouse position"
   [{{:keys [nodes max-node-id]} :space p :mouse-position :as state}]
@@ -202,7 +260,7 @@
         new-node (assoc (make-intersection-node 3) :id new-id :position p)
         ]
     (assoc (update-in (assoc-in state [:space :nodes new-id] new-node)
-       [:space :graph] (fn [g] (lg/add-nodes g new-node)))
+       [:space :graph] (fn [g] (lg/add-nodes g new-id)))
       :last-node-added new-id)
     ))
 
@@ -224,15 +282,17 @@
   "Removes the selected nodes and their edges"
   [{{:keys [selected-nodes]} :space :as state}]
   (println "Remove " selected-nodes)
-    (remove-edges
-      (assoc (update-in
-        (update-in state [:space :nodes]
-          (fn [nodes] (apply dissoc nodes (map last selected-nodes))))
-            [:space :graph] (fn [g] (lg/remove-nodes g selected-nodes)))
-     :action {:verb :remove :type :nodes :description "Remove nodes"})))
+  (add-connections-by-node
+    (update-compatibility-info
+     (remove-edges
+       (assoc (update-in
+                (update-in state [:space :nodes]
+                           (fn [nodes] (apply dissoc nodes (map last selected-nodes))))
+                [:space :graph] (fn [g] (lg/remove-nodes g selected-nodes)))
+         :action {:verb :remove :type :nodes :description "Remove nodes"})))))
 
 (defn add-graph [{edges :edges :as space}]
-  (assoc space :graph (apply lg/graph edges)))
+  (assoc space :graph (apply lg/graph (simplify-edges edges))))
 
 (defn update-ds
   ([{:keys [f] :as s}]
@@ -279,26 +339,9 @@
       :nodes {}
       :edges #{}
       :selected-nodes #{}
+      :connections-by-node {}
       :node-scale 0.02
       })))
-
-(defn just-ids [nodes] (vec (map (fn [[_ _ id]] id) nodes)))
-
-(defn quadrant-info [nodez nodes]
-  (map (fn [[_ _ nid _ cid]]
-    {:node-type (get-in nodes [nid :node-type])
-     :position (get-in nodes [nid :connections cid :position])}) nodez))
-
-(defn add-compatibility-info
-  "
-  Returns the given state with a map of node-node compatibilities added,
-  of the form {[nodeid1 nodeid2] true [nodeid4 nodeid5] false}
-  "
-  [{{:keys [nodes selected-nodes]} :space :as state}]
-  (assoc-in state [:space :compatibilities (just-ids selected-nodes)]
-    (compare-quadrants
-      (apply quadrants-types-by-position
-        (quadrant-info selected-nodes nodes)))))
 
 (defn make-connections
   "Returns the given state with any connections that need to be
@@ -307,31 +350,15 @@
   [{{:keys [nodes selected-nodes]} :space :as state}]
   (println "Connect " selected-nodes)
   (if (== 2 (count selected-nodes))
-    (update-in
-      (assoc-in
-        (update-in (add-compatibility-info state)
-          [:space :edges] conj (vec selected-nodes))
-       [:space :selected-nodes] #{})
+    (add-connections-by-node
+      (update-in
+       (assoc-in
+         (update-in (add-compatibility-info state)
+                    [:space :edges] conj (vec selected-nodes))
+         [:space :selected-nodes] #{})
        [:space :graph]
-        (fn [g] (lg/add-edges g (vec (map (fn [[_ _ nid _ _]] nid) selected-nodes)))))
+       (fn [g] (lg/add-edges g (vec (map (fn [[_ _ nid _ _]] nid) selected-nodes))))))
      state))
-
-; TODO use graph traversal on selected-nodes to save on connected-nodes
-(defn update-compatibility-info
-  "Following a node-type change, update the
-  compatibility info for its connections"
-  ([{{:keys [selected-nodes]} :space :as state}]
-    (reduce update-compatibility-info state (just-ids selected-nodes)))
-  ([{{:keys [graph edges nodes]} :space :as state} id]
-    (reduce
-      (fn [s edge]
-        (assoc-in s [:space :compatibilities (just-ids edge)]
-          (compare-quadrants
-            (apply quadrants-types-by-position
-              (quadrant-info edge nodes)))))
-      state (remove (C nil? last)
-              (map (juxt identity (C first (P lg/successors graph)))
-               (map (fn [c] [:space :nodes id :connections c]) (range 4)))))))
 
 (defn set-node-type
   "Returns a function to set the given selected nodes
@@ -357,3 +384,65 @@
 
 (defn insert-in [v i x]
   (vec (concat (conj (subvec v 0 i) x) (subvec v i))))
+
+(defn with-compatibilities
+  ([{[[nid1 nid2] & _] :points :as e} compatibilities]
+    (assoc e :compatible? (compatibilities [nid1 nid2]))))
+
+(defn edge-points
+  [nodes [[_ _ nid1 _ cid1] [_ _ nid2 _ cid2]]]
+    (let [
+           [nx1 ny1] (get-in nodes [nid1 :position])
+           [nx2 ny2] (get-in nodes [nid2 :position])
+           [cx1 cy1] (get-in nodes [nid1 :connections cid1 :position])
+           [cx2 cy2] (get-in nodes [nid2 :connections cid2 :position])
+           ]
+           {
+            :points [[nid1 nid2] [nx1 ny1] [nx2 ny2] [cx1 cx2] [cy1 cy2]]
+            :connections [[nid1 cid1] [nid2 cid2]]}))
+
+(defn make-open-regions
+  ([node-scale [node-id node-type edge-pairs]]
+   (println "   >>> " node-id (count edge-pairs))
+   (map
+     (fn [edge-pair]
+      (let
+          [[_ [nid1 x] [nid2 y] _] (mapcat :connections edge-pair)
+            xy (into #{} [x y])
+            qv (quadrant-vectors-by-connectors xy)
+            qt (quadrant-types-by-connector-pair node-type qv)
+            ]
+            (println "       > " node-id [nid1 nid2] xy qt qv)
+          {
+            :node-id node-id
+            :quadrant-type qt
+            :quadrant-vector qv
+            :points
+             (mapcat
+                (fn [{[[nid1 nid2] [nx1 ny1] [nx2 ny2] [cx1 cx2] [cy1 cy2]] :points cnx :connections}]
+                  (map svg/make-bezier
+                       [[[nx1 ny1] [(+ nx1 (* node-scale cx1)) (+ ny1 (* node-scale cy1))]]
+                        [[nx2 ny2] [(+ nx2 (* node-scale cx2)) (+ ny2 (* node-scale cy2))]]])) edge-pair)}
+          )) edge-pairs)))
+
+(defn reverse-edge
+([{[ids p1 p2 cx cy] :points c :connections}]
+  { :points [(reverse ids) p2 p1 (reverse cx) (reverse cy)]
+    :connections (reverse c)}))
+
+; finds edge-pair open-regions of nodes
+; the edges from connections-by-node are always from that node to the others
+; that's why I reverse one edge here to make a loop
+(defn edge-pairs-by-node [{:keys [nodes connections-by-node node-scale]}]
+  (println "cbn" connections-by-node)
+  (remove (comp empty? last)
+    (map
+      (fn [[id connections]]
+        (println "regions for node " id (count connections))
+        [id (get-in nodes [id :node-type])
+         (map (juxt (comp reverse-edge first) last)
+           (take (count connections)
+             (partition 2 1
+              (map (partial edge-points nodes) (cycle connections)))))])
+      (filter (fn [[k v]] (> (count v) 1))
+        (map (J :id (C connections-by-node :id)) (vals nodes))))))

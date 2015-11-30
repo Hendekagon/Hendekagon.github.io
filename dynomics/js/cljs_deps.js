@@ -48,8 +48,9 @@ goog.addDependency("../loom/graph.js", ['loom.graph'], ['cljs.core', 'loom.alg_g
 goog.addDependency("../tailrecursion/priority_map.js", ['tailrecursion.priority_map'], ['cljs.core', 'cljs.reader']);
 goog.addDependency("../loom/flow.js", ['loom.flow'], ['cljs.core', 'loom.alg_generic']);
 goog.addDependency("../loom/alg.js", ['loom.alg'], ['cljs.core', 'loom.alg_generic', 'loom.graph', 'tailrecursion.priority_map', 'clojure.set', 'loom.flow']);
+goog.addDependency("../dynomics/ui/svg.js", ['dynomics.ui.svg'], ['cljs.core']);
 goog.addDependency("../dynomics/space/graph.js", ['dynomics.space.graph'], ['cljs.core', 'loom.alg', 'loom.graph']);
-goog.addDependency("../dynomics/space/core.js", ['dynomics.space.core'], ['cljs.core', 'loom.alg', 'loom.graph', 'clojure.set', 'dynomics.space.graph']);
+goog.addDependency("../dynomics/space/core.js", ['dynomics.space.core'], ['cljs.core', 'loom.alg', 'loom.graph', 'dynomics.ui.svg', 'clojure.set', 'dynomics.space.graph']);
 goog.addDependency("../dynomics/ui/core.js", ['dynomics.ui.core'], ['cljs.core', 'dynomics.space.core']);
 goog.addDependency("../dynomics/ui/messaging.js", ['dynomics.ui.messaging'], ['cljs.core', 'cljs.core.async', 'goog.net.WebSocket', 'cljs.reader', 'goog.events']);
 goog.addDependency("../om/core.js", ['om.core'], ['goog.dom', 'cljs.core', 'om.dom', 'goog.dom.dataset', 'goog.object', 'cljsjs.react', 'goog.ui.IdGenerator']);
@@ -57,7 +58,6 @@ goog.addDependency("../dommy/utils.js", ['dommy.utils'], ['cljs.core']);
 goog.addDependency("../dommy/core.js", ['dommy.core'], ['cljs.core', 'dommy.utils', 'clojure.string']);
 goog.addDependency("../canvg.js", ['canvg'], []);
 goog.addDependency("../svg-pan-zoom.min.js", ['panzoom'], []);
-goog.addDependency("../dynomics/ui/svg.js", ['dynomics.ui.svg'], ['cljs.core']);
 goog.addDependency("../dynomics/space/ui.js", ['dynomics.space.ui'], ['dynomics.ui.css', 'panzoom', 'cljs.core', 'om.dom', 'cljs.core.async', 'dynomics.ui.svg', 'om.core', 'dommy.core', 'dynomics.space.core']);
 goog.addDependency("../com/cognitect/transit/util.js", ['com.cognitect.transit.util'], ['goog.object']);
 goog.addDependency("../com/cognitect/transit/eq.js", ['com.cognitect.transit.eq'], ['com.cognitect.transit.util']);

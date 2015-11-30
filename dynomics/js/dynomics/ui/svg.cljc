@@ -13,10 +13,10 @@
 (defn make-bezier
   ([[point & control-points]] {:point point :control-points control-points}))
 
-(defn to-svg-path [[{[fpx fpy] :point [[fcx fcy]] :control-points :as first-point} & points]]
+(defn to-svg-path [[{[fpx fpy] :point [[fcx fcy]] :control-points ml :ml :as first-point :or {ml "M"}} & points]]
   (apply str
     (concat
-      ["M" fpx "," fpy]
+      [ml fpx "," fpy]
       (mapcat
         (fn [[{[cp11 cp12] :control-points} {[cp21 cp22] :control-points p2 :point}]]
           (if cp22
