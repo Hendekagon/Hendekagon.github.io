@@ -7,7 +7,7 @@
     [garden.types :as gtypes]))
 
 (def quadrant-types-colours
-  ["red" "green" "purple" "rgb(255,250,0)"])
+  ["rgb(255,200,200)" "rgb(200,255,200)" "rgb(255,200,255)" "rgb(200,220,255)"])
 
 (defn inline-svg [svg]
   (let [e (hipo/create svg)]
@@ -188,11 +188,11 @@
    [:.dynomics_edge {:stroke "rgb(255,255,255)" :stroke-width 0.001 :fill "none"}]
    [:.dynomics_compatible_edge {:stroke "rgb(100,150,100)" :stroke-width 0.002 :fill "none"}]
    [:.dynomics_region {:stroke "rgb(50,50,200)" :stroke-width 0.001 :fill "rgb(150,200,255)" :opacity 0.3}]
-   [:.dynomics_open_region {:stroke "none"  :opacity 0.5}]
-   [:.dynomics_open_region_type_1 {:fill "red"}]
-   [:.dynomics_open_region_type_2 {:fill "rgb(255,250,0)"}]
-   [:.dynomics_open_region_type_3 {:fill "green"}]
-   [:.dynomics_open_region_type_4 {:fill "purple"}]
+   [:.dynomics_open_region {:stroke "none"  :opacity 0.8}]
+   [:.dynomics_open_region_type_0 {:fill "rgb(255,100,80)"}]
+   [:.dynomics_open_region_type_1 {:fill "rgb(255,100,255)"}]
+   [:.dynomics_open_region_type_2 {:fill "rgb(100,255,100)"}]
+   [:.dynomics_open_region_type_3 {:fill "rgb(100,120,255)"}]
    [:.dynomics_toolname {:font-size "1" :white-space "pre"}]
    [:.dynomics_cursor {:fill "rgb(0,0,0)" :opacity 0.5}]
    [:.dynomics_tool_selectors {:display :flex :flex-flow "row wrap" :border :none

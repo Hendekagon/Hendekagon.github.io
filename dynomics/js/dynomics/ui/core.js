@@ -30,23 +30,23 @@ return cljs.core.conj.call(null,kp,new cljs.core.Keyword(null,"key","key",-15160
 }));
 });
 dynomics.ui.core.keyup = (function dynomics$ui$core$keyup(var_args){
-var args655563 = [];
-var len__25269__auto___655566 = arguments.length;
-var i__25270__auto___655567 = (0);
+var args873493 = [];
+var len__25269__auto___873496 = arguments.length;
+var i__25270__auto___873497 = (0);
 while(true){
-if((i__25270__auto___655567 < len__25269__auto___655566)){
-args655563.push((arguments[i__25270__auto___655567]));
+if((i__25270__auto___873497 < len__25269__auto___873496)){
+args873493.push((arguments[i__25270__auto___873497]));
 
-var G__655568 = (i__25270__auto___655567 + (1));
-i__25270__auto___655567 = G__655568;
+var G__873498 = (i__25270__auto___873497 + (1));
+i__25270__auto___873497 = G__873498;
 continue;
 } else {
 }
 break;
 }
 
-var G__655565 = args655563.length;
-switch (G__655565) {
+var G__873495 = args873493.length;
+switch (G__873495) {
 case 1:
 return dynomics.ui.core.keyup.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -56,7 +56,7 @@ return dynomics.ui.core.keyup.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(ar
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args655563.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args873493.length)].join('')));
 
 }
 });
@@ -93,23 +93,23 @@ return k.call(null,cs);
 })),new cljs.core.Keyword(null,"dont-record","dont-record",577283045).cljs$core$IFn$_invoke$arity$1(cs)));
 });
 dynomics.ui.core.undo = (function dynomics$ui$core$undo(var_args){
-var args655570 = [];
-var len__25269__auto___655573 = arguments.length;
-var i__25270__auto___655574 = (0);
+var args873500 = [];
+var len__25269__auto___873503 = arguments.length;
+var i__25270__auto___873504 = (0);
 while(true){
-if((i__25270__auto___655574 < len__25269__auto___655573)){
-args655570.push((arguments[i__25270__auto___655574]));
+if((i__25270__auto___873504 < len__25269__auto___873503)){
+args873500.push((arguments[i__25270__auto___873504]));
 
-var G__655575 = (i__25270__auto___655574 + (1));
-i__25270__auto___655574 = G__655575;
+var G__873505 = (i__25270__auto___873504 + (1));
+i__25270__auto___873504 = G__873505;
 continue;
 } else {
 }
 break;
 }
 
-var G__655572 = args655570.length;
-switch (G__655572) {
+var G__873502 = args873500.length;
+switch (G__873502) {
 case 1:
 return dynomics.ui.core.undo.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -123,7 +123,7 @@ return dynomics.ui.core.undo.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arg
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args655570.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args873500.length)].join('')));
 
 }
 });
@@ -146,23 +146,23 @@ return cs;
 
 dynomics.ui.core.undo.cljs$lang$maxFixedArity = 3;
 dynomics.ui.core.redo = (function dynomics$ui$core$redo(var_args){
-var args655577 = [];
-var len__25269__auto___655580 = arguments.length;
-var i__25270__auto___655581 = (0);
+var args873507 = [];
+var len__25269__auto___873510 = arguments.length;
+var i__25270__auto___873511 = (0);
 while(true){
-if((i__25270__auto___655581 < len__25269__auto___655580)){
-args655577.push((arguments[i__25270__auto___655581]));
+if((i__25270__auto___873511 < len__25269__auto___873510)){
+args873507.push((arguments[i__25270__auto___873511]));
 
-var G__655582 = (i__25270__auto___655581 + (1));
-i__25270__auto___655581 = G__655582;
+var G__873512 = (i__25270__auto___873511 + (1));
+i__25270__auto___873511 = G__873512;
 continue;
 } else {
 }
 break;
 }
 
-var G__655579 = args655577.length;
-switch (G__655579) {
+var G__873509 = args873507.length;
+switch (G__873509) {
 case 1:
 return dynomics.ui.core.redo.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -176,7 +176,7 @@ return dynomics.ui.core.redo.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arg
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args655577.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args873507.length)].join('')));
 
 }
 });
@@ -210,23 +210,23 @@ return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"z"
  *   to the given function f
  */
 dynomics.ui.core.update_state = (function dynomics$ui$core$update_state(var_args){
-var args655584 = [];
-var len__25269__auto___655587 = arguments.length;
-var i__25270__auto___655588 = (0);
+var args873514 = [];
+var len__25269__auto___873517 = arguments.length;
+var i__25270__auto___873518 = (0);
 while(true){
-if((i__25270__auto___655588 < len__25269__auto___655587)){
-args655584.push((arguments[i__25270__auto___655588]));
+if((i__25270__auto___873518 < len__25269__auto___873517)){
+args873514.push((arguments[i__25270__auto___873518]));
 
-var G__655589 = (i__25270__auto___655588 + (1));
-i__25270__auto___655588 = G__655589;
+var G__873519 = (i__25270__auto___873518 + (1));
+i__25270__auto___873518 = G__873519;
 continue;
 } else {
 }
 break;
 }
 
-var G__655586 = args655584.length;
-switch (G__655586) {
+var G__873516 = args873514.length;
+switch (G__873516) {
 case 2:
 return dynomics.ui.core.update_state.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -236,7 +236,7 @@ return dynomics.ui.core.update_state.cljs$core$IFn$_invoke$arity$3((arguments[(0
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args655584.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args873514.length)].join('')));
 
 }
 });

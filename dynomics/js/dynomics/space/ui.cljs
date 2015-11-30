@@ -10,7 +10,7 @@
 
   "
   (:require
-    [dynomics.space.core :as dc]
+    [dynomics.space.core :as dc :refer [C P J c* p2c]]
     [dynomics.ui.svg :as svg :refer [trs]]
     [dynomics.ui.css :as uicss :refer [quadrant-types-colours]]
     [cljs.core.async :as async :refer [put!]]
@@ -192,7 +192,6 @@
 
 (defn make-type-icon
   ([type-id]
-    (println "icon for type " type-id)
     (rect :js {:x -1 :y -1 :width 3 :height 3 :fill "red"})
     (g #js {:id (str "dynomics_type_icon_" type-id)
             :className (str "dynomics_type_icon " (str "type_icon_" type-id))
@@ -312,6 +311,7 @@
               {
                :key (str "edge_" nid1 "_" nid2)
                :className (str "dynomics_edge " (cond compatible? "dynomics_compatible_edge"))
+
                :d
                (svg/to-svg-path
                  (map svg/make-bezier
@@ -340,7 +340,7 @@
 
 (defn make-node-component
   "Returns a component for a node and its connections"
-  [{{[x y] :position t :type pt :node-type id :id connections :connections} :node
+  [{{[x y] :position t :type node-type :node-type id :id connections :connections} :node
     node-scale :node-scale selected-nodes :selected-nodes
     {current-tool :current-tool} :component
     msgs :msgs pz :pan-zoom}]
@@ -358,10 +358,17 @@
               :onMouseUp (make-handler (to-coords "space_root") :mouse-up
                 {:msgs msgs :path path :pan-zoom pz :current-tool current-tool})
               }
+       (map
+        (fn [[i v]]
+          (rect #js {:className (str "dynomics_open_region_type_"
+                                  (get-in dc/node-types [node-type :quadrants v]))
+                     :x 0 :y 0 :width 1 :height 1
+                     :transform (trs [:r (* 90 (dec i))])}))
+         (map vector (range 4) (iterate (P c* [0 -1]) [1 1])))
        (circle #js {:cx 0 :cy 0 :r 0.3
                     :className (str "dynomics_node_selector_dot")
                     })
-        (text #js {:x -4 :y 4 :transform (trs [:s 0.05]) :fill "black"} (str pt))
+        (text #js {:x -4 :y 4 :transform (trs [:s 0.05]) :fill "black"} (str node-type))
        (rect #js {:x         0 :y 0 :width 1 :height 1
                   :transform (trs [:t -1 -1] [:s 2 2])
                   :className (str "dynomics_node")

@@ -251,209 +251,210 @@ _dispatchIDs: _dispatchListeners: altKey: bubbles: button: buttons: cancelable: 
     {
      :header
      {
-      :id         :header
-      :name       "Header"
+      :id :header
+      :name "Header"
       :om-builder make-header-view
       :query
-                  (fn [state]
-                    {
-                     :app-name      (:app-name state)
-                     :app-version   (:app-version state)
-                     :logo-text     (:logo-text state)
-                     :dt            (:dt state)
-                     :current-tool  (get-in state [:ui :functions :dynomics :current-tool])
-                     :tools         (get-in state [:ui :functions :dynomics :tools])
-                     :tools-order   (get-in state [:ui :functions :dynomics :tools-order])
-                     :state-updates (get-in state [:messaging :state-updates])
-                     })
+      (fn [state]
+        {
+         :app-name (:app-name state)
+         :app-version (:app-version state)
+         :logo-text (:logo-text state)
+         :dt (:dt state)
+         :current-tool (get-in state [:ui :functions :dynomics :current-tool])
+         :tools (get-in state [:ui :functions :dynomics :tools])
+         :tools-order (get-in state [:ui :functions :dynomics :tools-order])
+         :state-updates (get-in state [:messaging :state-updates])
+         })
       }
      :dynomics
      {
-      :id           :dynomics
-      :name         "Dynamics"
-      :om-builder   dynomics.space.ui/make-space-component
+      :id :dynomics
+      :name "Dynamics"
+      :om-builder dynomics.space.ui/make-space-component
       :query
-                    (fn [state]
-                      {
-                       :state-updates   (get-in state [:messaging :state-updates])
-                       :msgs            (get-in state [:messaging :message-channel])
-                       :space           (:space state)
-                       :cf              (get-in state [:ui :current-function])
-                       :component       (get-in state [:ui :functions :dynomics])
-                       :pan-zoom        (:pan-zoom state)
-                       :last-node-added (:last-node-added state)
-                       })
+      (fn [state]
+        {
+         :state-updates (get-in state [:messaging :state-updates])
+         :msgs (get-in state [:messaging :message-channel])
+         :space (:space state)
+         :cf (get-in state [:ui :current-function])
+         :component (get-in state [:ui :functions :dynomics])
+         :pan-zoom (:pan-zoom state)
+         :last-node-added (:last-node-added state)
+         })
       :subscriptions
-                    (fn [{{:keys [state-updates msgs write-channel]} :messaging}]
-                      [
-                       {
-                        :topic [:mouse-move :move-nodes]
-                        :handler
-                               (fn [{[x y] :position}]
-                                 (put! state-updates
-                                   {:fn
-                                            (fn [{{:keys [selected-nodes] :as space} :space :as s}]
-                                              (reduce
-                                                (fn [r path]
-                                                  (let [tfn (if (== 3 (count path)) (fn [p _ _] [[path p]]) dc/mirror-node)]
-                                                    (reduce
-                                                      (fn [r [cpath cpoint]]
-                                                        (assoc-in r (conj cpath :position) cpoint))
-                                                      r (tfn [x y] path space))))
-                                                s selected-nodes))
-                                    :action {:verb :move :type :phase-space-node :dont-record true}
-                                    }) nil)}
-                       {
-                        :topic [:mouse-down :move-nodes]
-                        :handler
-                               (fn [{[x y] :position id :id path :path :as ss}]
-                                 (println "Select node to move " path [x y])
-                                 (cond path (du/disable-pan-zoom! ss))
-                                 (cond path
-                                       (put! state-updates
-                                         {
-                                          :fn     (fn [{{selected-nodes :selected-nodes} :space :as s}]
-                                                    (assoc-in
-                                                      (if path (update-in s [:space :selected-nodes] conj path) s)
-                                                      (conj path :move-offset)
-                                                      [x y]))
-                                          :action {:verb :select :type :phase-space-node :path path}
-                                          })) nil)
-                        }
-                       {
-                        :topic [:mouse-up :move-nodes]
-                        :handler
-                               (fn [{[x y] :position path :path :as ss}]
-                                 (println "Unselect node " path)
-                                 (du/enable-pan-zoom! ss)
-                                 (put! state-updates
-                                   {
-                                    :fn     (fn [s] (update-in s [:space :selected-nodes] disj path))
-                                    :action {:verb        :unselect :type :phase-space-node :path path
-                                             :description (str "Move " (get path 2) ":" (last path))}
-                                    }) nil)
-                        }
-                       {
-                        :topic [:mouse-down :add-nodes]
-                        :handler
-                               (fn [{[x y] :position}]
-                                 (println "Add node ")
-                                 (put! state-updates
-                                   {
-                                    :fn     (fn [s] (dc/add-node (assoc s :mouse-position [x y])))
-                                    :action {:verb        :add :type :phase-space-node
-                                             :description (str "Add node")}
-                                    }) nil)
-                        }
-                       {
-                        :topic [:mouse-up :connect-nodes]
-                        :handler
-                               (fn [{[x y] :position id :id path :path}]
-                                 (println "Connect node " path)
-                                 (put! state-updates
-                                   {
-                                    :fn     (fn [s]
-                                              (dc/make-connections
-                                                (update-in s [:space :selected-nodes] conj path)))
-                                    :action {:verb        :select :type :phase-space-node :path path
-                                             :description (str "Connect " id)}
-                                    }) nil)
-                        }
-                       {
-                        :topic [:mouse-down :select-nodes]
-                        :handler
-                               (fn [{mp :position path :path}]
-                                 (println "Select node " path)
-                                 (put! state-updates
-                                   {
-                                    :fn     (fn [s] (select-node s path mp))
-                                    :action {:verb :select :type :phase-space-node :path path}
-                                    }) nil)
-                        }
-                       ])
-      :current-tool :nothing
-      :tools-order  [:add-nodes :connect-nodes :select-nodes :move-nodes :deselect-all :remove-selected :save :load]
-      :tools
+      (fn [{{:keys [state-updates msgs write-channel]} :messaging}]
+        [
+         {
+          :topic [:mouse-move :move-nodes]
+          :handler
+          (fn [{[x y] :position}]
+            (put! state-updates
+              {:fn
+               (fn [{{:keys [selected-nodes] :as space} :space :as s}]
+                 (reduce
+                   (fn [r path]
+                     (let [tfn (if (== 3 (count path)) (fn [p _ _] [[path p]]) dc/mirror-node)]
+                       (reduce
+                         (fn [r [cpath cpoint]]
+                           (assoc-in r (conj cpath :position) cpoint))
+                         r (tfn [x y] path space))))
+                   s selected-nodes))
+               :action {:verb :move :type :phase-space-node :dont-record true}
+               }) nil)}
+         {
+          :topic [:mouse-down :move-nodes]
+          :handler
+          (fn [{[x y] :position id :id path :path :as ss}]
+            (println "Select node to move " path [x y])
+            (cond path (du/disable-pan-zoom! ss))
+            (cond path
+                  (put! state-updates
                     {
-                     :move-nodes
-                     {
-                      :name        "Move nodes"
-                      :description "Move the selected nodes"
-                      :icon        "⬉"
-                      :keybinding  :f
-                      }
-                     :connect-nodes
-                     {
-                      :name        "Connect nodes"
-                      :description "Connect nodes to make curves ⌒"
-                      :icon        "∾"
-                      :keybinding  :g
-                      }
-                     :select-nodes
-                     {
-                      :name        "Select nodes"
-                      :description "Select nodes"
-                      :icon        "⨃"
-                      :keybinding  :h
-                      }
-                     :add-nodes
-                     {
-                      :name        "Add nodes"
-                      :description "Add some nodes"
-                      :icon        "+"
-                      :keybinding  :j
-                      }
-                     :save
-                     {
-                      :name        "Save space"
-                      :description "Saves the space in your browser for later (sorry I will swap this icon for the familiar
+                     :fn (fn [{{selected-nodes :selected-nodes} :space :as s}]
+                           (assoc-in
+                             (if path (update-in s [:space :selected-nodes] conj path) s)
+                             (conj path :move-offset)
+                             [x y]))
+                     :action {:verb :select :type :phase-space-node :path path}
+                     })) nil)
+          }
+         {
+          :topic [:mouse-up :move-nodes]
+          :handler
+          (fn [{[x y] :position path :path :as ss}]
+            (println "Unselect node " path)
+            (du/enable-pan-zoom! ss)
+            (put! state-updates
+              {
+               :fn (fn [s] (update-in s [:space :selected-nodes] disj path))
+               :action {:verb :unselect :type :phase-space-node :path path
+                        :description (str "Move " (get path 2) ":" (last path))}
+               }) nil)
+          }
+         {
+          :topic [:mouse-down :add-nodes]
+          :handler
+          (fn [{[x y] :position}]
+            (println "Add node ")
+            (put! state-updates
+              {
+               :fn (fn [s] (dc/add-node (assoc s :mouse-position [x y])))
+               :action {:verb :add :type :phase-space-node
+                        :description (str "Add node")}
+               }) nil)
+          }
+         {
+          :topic [:mouse-up :connect-nodes]
+          :handler
+          (fn [{[x y] :position id :id path :path}]
+            (println "Connect node " path)
+            (put! state-updates
+              {
+               :fn (fn [s]
+                     (dc/make-connections
+                       (update-in s [:space :selected-nodes] conj path)))
+               :action {:verb :select :type :phase-space-node :path path
+                        :description (str "Connect " id)}
+               }) nil)
+          }
+         {
+          :topic [:mouse-down :select-nodes]
+          :handler
+          (fn [{mp :position path :path}]
+            ; TODO make this general object select
+            (println "Select node " path)
+            (cond path (put! state-updates
+               {
+                :fn (fn [s] (select-node s path mp))
+                :action {:verb :select :type :phase-space-node :path path}
+                })) nil)
+          }
+         ])
+      :current-tool :nothing
+      :tools-order [:add-nodes :connect-nodes :select-nodes :move-nodes :deselect-all :remove-selected :save :load]
+      :tools
+      {
+       :move-nodes
+       {
+        :name "Move nodes"
+        :description "Move the selected nodes"
+        :icon "⬉"
+        :keybinding :f
+        }
+       :connect-nodes
+       {
+        :name "Connect nodes"
+        :description "Connect nodes to make curves ⌒"
+        :icon "∾"
+        :keybinding :g
+        }
+       :select-nodes
+       {
+        :name "Select nodes"
+        :description "Select nodes"
+        :icon "⨃"
+        :keybinding :h
+        }
+       :add-nodes
+       {
+        :name "Add nodes"
+        :description "Add some nodes"
+        :icon "+"
+        :keybinding :j
+        }
+       :save
+       {
+        :name "Save space"
+        :description "Saves the space in your browser for later (sorry I will swap this icon for the familiar
                                     floppy-disk icon when I find it"
-                      :icon        "⛁"
-                      :keybinding  :q
-                      :fn          ps/persist!
-                      }
-                     :load
+        :icon "⛁"
+        :keybinding :q
+        :fn ps/persist!
+        }
+       :load
+       {
+        :name "Load space"
+        :description "Restores the last saved space"
+        :icon "⛃"
+        :keybinding :w
+        :fn ps/get-state!
+        }
+       :deselect-all
+       {
+        :name "Deselect all"
+        :description "Deselects all selected nodes"
+        :icon "∅"
+        :keybinding :d
+        :fn dc/deselect-all
+        }
+       :remove-selected
+       {
+        :name "Remove selected"
+        :description "Removes selected nodes"
+        :icon "☒"
+        :keybinding :minus
+        :fn (comp dc/deselect-all dc/remove-selected-nodes)
+        }
+       :node-types
+       {
+        :name "Node types"
+        :description "Choose the type of the selected nodes"
+        :tools
+        (reduce
+          (fn [r {:keys [id]}]
+            (assoc r id
                      {
-                      :name        "Load space"
-                      :description "Restores the last saved space"
-                      :icon        "⛃"
-                      :keybinding  :w
-                      :fn          ps/get-state!
-                      }
-                     :deselect-all
-                     {
-                      :name        "Deselect all"
-                      :description "Deselects all selected nodes"
-                      :icon        "∅"
-                      :keybinding  :d
-                      :fn          dc/deselect-all
-                      }
-                     :remove-selected
-                     {
-                      :name        "Remove selected"
-                      :description "Removes selected nodes"
-                      :icon        "☒"
-                      :keybinding  :minus
-                      :fn          (comp dc/deselect-all dc/remove-selected-nodes)
-                      }
-                     :node-types
-                     {
-                      :name        "Node types"
-                      :description "Choose the type of the selected nodes"
-                      :tools
-                                   (reduce
-                                     (fn [r {:keys [id]}]
-                                       (assoc r id
-                                                {
-                                                 :name        (str "Node type " id)
-                                                 :description (str "Set the node type of the selected nodes to " id)
-                                                 :icon        (str id)
-                                                 :keybinding  [:keymap :t (keyword (str id)) (keyword (str id))]
-                                                 :fn          (dc/set-node-type id)
-                                                 }))
-                                     {} (vals dc/node-types))
-                      }
-                     }
+                      :name (str "Node type " id)
+                      :description (str "Set the node type of the selected nodes to " id)
+                      :icon (str id)
+                      :keybinding [:keymap :t (keyword (str id)) (keyword (str id))]
+                      :fn (dc/set-node-type id)
+                      }))
+          {} (vals dc/node-types))
+        }
+       }
       }
      }))
 

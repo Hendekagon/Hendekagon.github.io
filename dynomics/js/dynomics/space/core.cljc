@@ -438,11 +438,14 @@
   (remove (comp empty? last)
     (map
       (fn [[id connections]]
-        (println "regions for node " id (count connections))
+        (println " possible quadrants for node " id (count connections))
         [id (get-in nodes [id :node-type])
          (map (juxt (comp reverse-edge first) last)
-           (take (count connections)
-             (partition 2 1
-              (map (partial edge-points nodes) (cycle connections)))))])
+           (filter
+            (fn [[{[[_ a] _] :connections} {[[_ b] _] :connections}]]
+              (not (== 2 (abs (- a b)))))
+            (take (count connections)
+              (partition 2 1
+                (map (partial edge-points nodes) (cycle connections))))))])
       (filter (fn [[k v]] (> (count v) 1))
         (map (J :id (C connections-by-node :id)) (vals nodes))))))
