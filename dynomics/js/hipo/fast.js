@@ -7,10 +7,10 @@ return (cljs.core.count.call(null,v) === (0));
 hipo.fast.conjs_BANG_ = (function hipo$fast$conjs_BANG_(v,s){
 while(true){
 if(cljs.core.truth_(s)){
-var G__876217 = cljs.core.conj_BANG_.call(null,v,cljs.core.first.call(null,s));
-var G__876218 = cljs.core.next.call(null,s);
-v = G__876217;
-s = G__876218;
+var G__199670 = cljs.core.conj_BANG_.call(null,v,cljs.core.first.call(null,s));
+var G__199671 = cljs.core.next.call(null,s);
+v = G__199670;
+s = G__199671;
 continue;
 } else {
 return v;

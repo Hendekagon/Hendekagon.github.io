@@ -324,18 +324,16 @@
     ;(println "  or " node-id "type" quadrant-type " > " [qx qy])
     (om/component
       (g #js {}
-         (comment (defs #js {}
-                (radialGradient #js
-                                    {:id (str "qg_" node-id "_" quadrant-type)
-                                     :gradientUnits "userSpaceOnUse"
-                                     :cx x :cy y :r 0.04
-                                     }
-                                (stop #js {:offset "0" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "1"})
-                                (stop #js {:offset "0.5" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0.25"})
-                                (stop #js {:offset "0.75" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0.125"})
-                                (stop #js {:offset "1" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0"}))))
-        (path #js {:className (str "dynomics_open_region " (str "dynomics_open_region_type_" quadrant-type))
-                   ;:fill (str "url(#" (str "qg_" node-id  "_" quadrant-type) ")")
+        (defs #js {}
+          (radialGradient #js
+              {:id (str "qg_" node-id "_" quadrant-type)
+               :gradientUnits "userSpaceOnUse"
+               :cx x :cy y :r 0.04
+               }
+            (stop #js {:offset "0" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "1"})
+            (stop #js {:offset "1" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0"})))
+        (path #js {:className (str "ddynomics_open_region " (str "ddynomics_open_region_type_" quadrant-type))
+                   :fill (str "url(#" (str "qg_" node-id  "_" quadrant-type) ")")
                   :d (str (svg/to-svg-path [p1 p2]) (svg/to-svg-path [(assoc p3 :ml "L") p4]) "z")})))))
 
 (defn make-node-component
@@ -360,15 +358,18 @@
               }
        (map
         (fn [[i v]]
-          (rect #js {:className (str "dynomics_open_region_type_"
+          (rect #js {:className (str "ddynomics_open_region_type_"
                                   (get-in dc/node-types [node-type :quadrants v]))
                      :x 0 :y 0 :width 1 :height 1
+                     :fill (str "url(#qg_" (get-in dc/node-types [node-type :quadrants v]) ")")
                      :transform (trs [:r (* 90 (dec i))])}))
          (map vector (range 4) (iterate (P c* [0 -1]) [1 1])))
+        (comment (g #js {:className "dynomics_node_icon"}
+           (om/build make-node-types-cached-component {:id id :type node-type :key (str "nntp" id)} {:key :key})))
        (circle #js {:cx 0 :cy 0 :r 0.3
                     :className (str "dynomics_node_selector_dot")
                     })
-        (text #js {:x -4 :y 4 :transform (trs [:s 0.05]) :fill "black"} (str node-type))
+        (comment (text #js {:x -4 :y 4 :transform (trs [:s 0.05]) :fill "black"} (str node-type)))
        (rect #js {:x         0 :y 0 :width 1 :height 1
                   :transform (trs [:t -1 -1] [:s 2 2])
                   :className (str "dynomics_node")
@@ -399,6 +400,17 @@
 (defn test-component [x]
   (om/component (circle #js {:cx 0 :cy 0 :r 0.2 :fill (if (> 0.5 (.random js/Math)) "orange" "green")})))
 
+(defn make-quadrant-gradients
+([]
+ (for [quadrant-type (range 4)]
+  (radialGradient #js
+     {:id (str "qg_" quadrant-type)
+      :gradientUnits "objectBoundingBox"
+      :cx 0 :cy 0 :r 1
+      }
+    (stop #js {:offset "0" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "1"})
+    (stop #js {:offset "1" :stopColor (get quadrant-types-colours quadrant-type) :stopOpacity "0"})))))
+
 (defn make-space-component
   "Returns a component for the phase-space editor"
    ([{{:keys [nodes edges selected-nodes regions compatibilities graph node-scale] :as space} :space cf :cf
@@ -416,6 +428,7 @@
                  :preserveAspectRatio "xMidYMin"
                  :zoomAndPan false
                  }
+         (defs #js {} (make-quadrant-gradients))
          (g #js {:id          "space_root"
                  :onMouseMove (make-handler (to-coords "space_root") :mouse-move {:msgs msgs :pan-zoom pz :current-tool current-tool})
                  :onMouseDown (make-handler (to-coords "space_root") :mouse-down {:msgs msgs :pan-zoom pz :current-tool current-tool})
@@ -440,8 +453,8 @@
                                   :d (dc/to-closed-svg-path (mapcat identity region))}))
                         (dc/make-paths space))))
             ;(om/build test-component (select-keys state [:component]))
-            (om/build-all make-open-region-component
-                          (mapcat (partial dc/make-open-regions node-scale) (dc/edge-pairs-by-node space)))
+           (comment (om/build-all make-open-region-component
+              (mapcat (partial dc/make-open-regions node-scale) (dc/edge-pairs-by-node space))))
             (om/build-all make-edge-component
                           (map (fn [e]
                                   (assoc (dc/with-compatibilities e compatibilities)

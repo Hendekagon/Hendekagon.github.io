@@ -7,7 +7,7 @@
     [garden.types :as gtypes]))
 
 (def quadrant-types-colours
-  ["rgb(255,200,200)" "rgb(200,255,200)" "rgb(255,200,255)" "rgb(200,220,255)"])
+  ["rgb(255,50,50)" "rgb(50,255,50)" "rgb(255,50,255)" "rgb(50,80,255)"])
 
 (defn inline-svg [svg]
   (let [e (hipo/create svg)]
@@ -175,6 +175,7 @@
                             }]
    [:.dynomics_space_background {:fill "rgb(50,50,50)"}]
    [:.dynomics_node {:fill "rgb(255,130,200)" :opacity 0.0 :display :none}]
+   [:.dynomics_node_icon {:opacity 0.8}]
    [:.dynomics_node_connections {:opacity 1}]
    [:.dynomics_node_subgraph:hover>.dynomics_node {:opacity 0}]
    [:.dynomics_node_subgraph:hover>.dynomics_node_connections {:opacity 1}]
