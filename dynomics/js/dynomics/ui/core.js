@@ -30,23 +30,23 @@ return cljs.core.conj.call(null,kp,new cljs.core.Keyword(null,"key","key",-15160
 }));
 });
 dynomics.ui.core.keyup = (function dynomics$ui$core$keyup(var_args){
-var args196946 = [];
-var len__25279__auto___196949 = arguments.length;
-var i__25280__auto___196950 = (0);
+var args43076 = [];
+var len__25223__auto___43079 = arguments.length;
+var i__25224__auto___43080 = (0);
 while(true){
-if((i__25280__auto___196950 < len__25279__auto___196949)){
-args196946.push((arguments[i__25280__auto___196950]));
+if((i__25224__auto___43080 < len__25223__auto___43079)){
+args43076.push((arguments[i__25224__auto___43080]));
 
-var G__196951 = (i__25280__auto___196950 + (1));
-i__25280__auto___196950 = G__196951;
+var G__43081 = (i__25224__auto___43080 + (1));
+i__25224__auto___43080 = G__43081;
 continue;
 } else {
 }
 break;
 }
 
-var G__196948 = args196946.length;
-switch (G__196948) {
+var G__43078 = args43076.length;
+switch (G__43078) {
 case 1:
 return dynomics.ui.core.keyup.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -56,7 +56,7 @@ return dynomics.ui.core.keyup.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(ar
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args196946.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args43076.length)].join('')));
 
 }
 });
@@ -66,9 +66,9 @@ return dynomics.ui.core.keyup.call(null,s,cljs.core.get_in.call(null,s,cljs.core
 });
 
 dynomics.ui.core.keyup.cljs$core$IFn$_invoke$arity$2 = (function (s,f){
-var or__24221__auto__ = f.call(null,dynomics.ui.core.kop.call(null,cljs.core.assoc.call(null,s,new cljs.core.Keyword(null,"fn","fn",-1175266204),f.name)));
-if(cljs.core.truth_(or__24221__auto__)){
-return or__24221__auto__;
+var or__24165__auto__ = f.call(null,dynomics.ui.core.kop.call(null,cljs.core.assoc.call(null,s,new cljs.core.Keyword(null,"fn","fn",-1175266204),f.name)));
+if(cljs.core.truth_(or__24165__auto__)){
+return or__24165__auto__;
 } else {
 return s;
 }
@@ -93,23 +93,23 @@ return k.call(null,cs);
 })),new cljs.core.Keyword(null,"dont-record","dont-record",577283045).cljs$core$IFn$_invoke$arity$1(cs)));
 });
 dynomics.ui.core.undo = (function dynomics$ui$core$undo(var_args){
-var args196953 = [];
-var len__25279__auto___196956 = arguments.length;
-var i__25280__auto___196957 = (0);
+var args43083 = [];
+var len__25223__auto___43086 = arguments.length;
+var i__25224__auto___43087 = (0);
 while(true){
-if((i__25280__auto___196957 < len__25279__auto___196956)){
-args196953.push((arguments[i__25280__auto___196957]));
+if((i__25224__auto___43087 < len__25223__auto___43086)){
+args43083.push((arguments[i__25224__auto___43087]));
 
-var G__196958 = (i__25280__auto___196957 + (1));
-i__25280__auto___196957 = G__196958;
+var G__43088 = (i__25224__auto___43087 + (1));
+i__25224__auto___43087 = G__43088;
 continue;
 } else {
 }
 break;
 }
 
-var G__196955 = args196953.length;
-switch (G__196955) {
+var G__43085 = args43083.length;
+switch (G__43085) {
 case 1:
 return dynomics.ui.core.undo.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -123,7 +123,7 @@ return dynomics.ui.core.undo.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arg
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args196953.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args43083.length)].join('')));
 
 }
 });
@@ -146,23 +146,23 @@ return cs;
 
 dynomics.ui.core.undo.cljs$lang$maxFixedArity = 3;
 dynomics.ui.core.redo = (function dynomics$ui$core$redo(var_args){
-var args196960 = [];
-var len__25279__auto___196963 = arguments.length;
-var i__25280__auto___196964 = (0);
+var args43090 = [];
+var len__25223__auto___43093 = arguments.length;
+var i__25224__auto___43094 = (0);
 while(true){
-if((i__25280__auto___196964 < len__25279__auto___196963)){
-args196960.push((arguments[i__25280__auto___196964]));
+if((i__25224__auto___43094 < len__25223__auto___43093)){
+args43090.push((arguments[i__25224__auto___43094]));
 
-var G__196965 = (i__25280__auto___196964 + (1));
-i__25280__auto___196964 = G__196965;
+var G__43095 = (i__25224__auto___43094 + (1));
+i__25224__auto___43094 = G__43095;
 continue;
 } else {
 }
 break;
 }
 
-var G__196962 = args196960.length;
-switch (G__196962) {
+var G__43092 = args43090.length;
+switch (G__43092) {
 case 1:
 return dynomics.ui.core.redo.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -176,7 +176,7 @@ return dynomics.ui.core.redo.cljs$core$IFn$_invoke$arity$3((arguments[(0)]),(arg
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args196960.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args43090.length)].join('')));
 
 }
 });
@@ -210,23 +210,23 @@ return new cljs.core.PersistentArrayMap(null, 4, [new cljs.core.Keyword(null,"z"
  *   to the given function f
  */
 dynomics.ui.core.update_state = (function dynomics$ui$core$update_state(var_args){
-var args196967 = [];
-var len__25279__auto___196970 = arguments.length;
-var i__25280__auto___196971 = (0);
+var args43097 = [];
+var len__25223__auto___43100 = arguments.length;
+var i__25224__auto___43101 = (0);
 while(true){
-if((i__25280__auto___196971 < len__25279__auto___196970)){
-args196967.push((arguments[i__25280__auto___196971]));
+if((i__25224__auto___43101 < len__25223__auto___43100)){
+args43097.push((arguments[i__25224__auto___43101]));
 
-var G__196972 = (i__25280__auto___196971 + (1));
-i__25280__auto___196971 = G__196972;
+var G__43102 = (i__25224__auto___43101 + (1));
+i__25224__auto___43101 = G__43102;
 continue;
 } else {
 }
 break;
 }
 
-var G__196969 = args196967.length;
-switch (G__196969) {
+var G__43099 = args43097.length;
+switch (G__43099) {
 case 2:
 return dynomics.ui.core.update_state.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(arguments[(1)]));
 
@@ -236,7 +236,7 @@ return dynomics.ui.core.update_state.cljs$core$IFn$_invoke$arity$3((arguments[(0
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args196967.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args43097.length)].join('')));
 
 }
 });
@@ -247,16 +247,16 @@ return dynomics.ui.core.update_state.call(null,cljs.core.merge.call(null,s,e),e,
 
 dynomics.ui.core.update_state.cljs$core$IFn$_invoke$arity$3 = (function (s,e,f){
 var ns = f.call(null,s);
-var g = (function (){var or__24221__auto__ = new cljs.core.Keyword(null,"fn","fn",-1175266204).cljs$core$IFn$_invoke$arity$1(ns);
-if(cljs.core.truth_(or__24221__auto__)){
-return or__24221__auto__;
+var g = (function (){var or__24165__auto__ = new cljs.core.Keyword(null,"fn","fn",-1175266204).cljs$core$IFn$_invoke$arity$1(ns);
+if(cljs.core.truth_(or__24165__auto__)){
+return or__24165__auto__;
 } else {
 return f.name;
 }
 })();
-if(cljs.core.truth_((function (){var or__24221__auto__ = cljs.core.get_in.call(null,s,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"action","action",-811238024),new cljs.core.Keyword(null,"dont-record","dont-record",577283045)], null));
-if(cljs.core.truth_(or__24221__auto__)){
-return or__24221__auto__;
+if(cljs.core.truth_((function (){var or__24165__auto__ = cljs.core.get_in.call(null,s,new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null,"action","action",-811238024),new cljs.core.Keyword(null,"dont-record","dont-record",577283045)], null));
+if(cljs.core.truth_(or__24165__auto__)){
+return or__24165__auto__;
 } else {
 return (cljs.core._EQ_.call(null,g,new cljs.core.Keyword(null,"undo","undo",-1818036302))) || (cljs.core._EQ_.call(null,g,new cljs.core.Keyword(null,"redo","redo",501190664))) || (cljs.core._EQ_.call(null,g,"cljs$core$identity"));
 }

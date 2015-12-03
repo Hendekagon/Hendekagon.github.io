@@ -27,20 +27,20 @@ return shifted;
 cljs.source_map.base64_vlq.encode_val = (function cljs$source_map$base64_vlq$encode_val(n){
 var sb = (new goog.string.StringBuffer());
 var vlq = cljs.source_map.base64_vlq.to_vlq_signed.call(null,n);
-var digit_197922 = (vlq & cljs.source_map.base64_vlq.vlq_base_mask);
-var vlq_197923__$1 = (vlq >>> cljs.source_map.base64_vlq.vlq_base_shift);
+var digit_44052 = (vlq & cljs.source_map.base64_vlq.vlq_base_mask);
+var vlq_44053__$1 = (vlq >>> cljs.source_map.base64_vlq.vlq_base_shift);
 while(true){
-if((vlq_197923__$1 > (0))){
-var digit_197924__$1 = (digit_197922 | cljs.source_map.base64_vlq.vlq_continuation_bit);
-sb.append(cljs.source_map.base64.encode.call(null,digit_197924__$1));
+if((vlq_44053__$1 > (0))){
+var digit_44054__$1 = (digit_44052 | cljs.source_map.base64_vlq.vlq_continuation_bit);
+sb.append(cljs.source_map.base64.encode.call(null,digit_44054__$1));
 
-var G__197925 = (vlq_197923__$1 & cljs.source_map.base64_vlq.vlq_base_mask);
-var G__197926 = (vlq_197923__$1 >>> cljs.source_map.base64_vlq.vlq_base_shift);
-digit_197922 = G__197925;
-vlq_197923__$1 = G__197926;
+var G__44055 = (vlq_44053__$1 & cljs.source_map.base64_vlq.vlq_base_mask);
+var G__44056 = (vlq_44053__$1 >>> cljs.source_map.base64_vlq.vlq_base_shift);
+digit_44052 = G__44055;
+vlq_44053__$1 = G__44056;
 continue;
 } else {
-sb.append(cljs.source_map.base64.encode.call(null,digit_197922));
+sb.append(cljs.source_map.base64.encode.call(null,digit_44052));
 }
 break;
 }
@@ -68,12 +68,12 @@ var digit__$1 = (digit & cljs.source_map.base64_vlq.vlq_base_mask);
 var result__$1 = (result + (digit__$1 << shift));
 var shift__$1 = (shift + cljs.source_map.base64_vlq.vlq_base_shift);
 if(continuation_QMARK_){
-var G__197927 = i__$1;
-var G__197928 = result__$1;
-var G__197929 = shift__$1;
-i = G__197927;
-result = G__197928;
-shift = G__197929;
+var G__44057 = i__$1;
+var G__44058 = result__$1;
+var G__44059 = shift__$1;
+i = G__44057;
+result = G__44058;
+shift = G__44059;
 continue;
 } else {
 return (new cljs.core.LazySeq(null,((function (i,result,shift,i__$1,continuation_QMARK_,digit__$1,result__$1,shift__$1,digit,l){

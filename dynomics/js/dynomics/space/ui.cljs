@@ -356,14 +356,14 @@
               :onMouseUp (make-handler (to-coords "space_root") :mouse-up
                 {:msgs msgs :path path :pan-zoom pz :current-tool current-tool})
               }
-       (map
-        (fn [[i v]]
-          (rect #js {:className (str "ddynomics_open_region_type_"
-                                  (get-in dc/node-types [node-type :quadrants v]))
-                     :x 0 :y 0 :width 1 :height 1
-                     :fill (str "url(#qg_" (get-in dc/node-types [node-type :quadrants v]) ")")
-                     :transform (trs [:r (* 90 (dec i))])}))
-         (map vector (range 4) (iterate (P c* [0 -1]) [1 1])))
+        (comment(map
+           (fn [[i v]]
+             (rect #js {:className (str "ddynomics_open_region_type_"
+                                     (get-in dc/node-types [node-type :quadrants v]))
+                        :x 0 :y 0 :width 1 :height 1
+                        :fill (str "url(#qg_" (get-in dc/node-types [node-type :quadrants v]) ")")
+                        :transform (trs [:r (* 90 (dec i))])}))
+           (map vector (range 4) (iterate (P c* [0 -1]) [1 1]))))
         (comment (g #js {:className "dynomics_node_icon"}
            (om/build make-node-types-cached-component {:id id :type node-type :key (str "nntp" id)} {:key :key})))
        (circle #js {:cx 0 :cy 0 :r 0.3
