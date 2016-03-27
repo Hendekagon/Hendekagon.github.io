@@ -1,24 +1,24 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.8.34 {}
 goog.provide('dommy.utils');
 goog.require('cljs.core');
 /**
  * Dissociate this keyseq from m, removing any empty maps created as a result
  * (including at the top-level).
  */
-dommy.utils.dissoc_in = (function dommy$utils$dissoc_in(m,p__52524){
-var vec__52526 = p__52524;
-var k = cljs.core.nth.call(null,vec__52526,(0),null);
-var ks = cljs.core.nthnext.call(null,vec__52526,(1));
+dommy.utils.dissoc_in = (function dommy$utils$dissoc_in(m,p__288411){
+var vec__288413 = p__288411;
+var k = cljs.core.nth.call(null,vec__288413,(0),null);
+var ks = cljs.core.nthnext.call(null,vec__288413,(1));
 if(cljs.core.truth_(m)){
-var temp__4423__auto__ = (function (){var and__24153__auto__ = ks;
-if(cljs.core.truth_(and__24153__auto__)){
+var temp__4655__auto__ = (function (){var and__35179__auto__ = ks;
+if(cljs.core.truth_(and__35179__auto__)){
 return dommy$utils$dissoc_in.call(null,m.call(null,k),ks);
 } else {
-return and__24153__auto__;
+return and__35179__auto__;
 }
 })();
-if(cljs.core.truth_(temp__4423__auto__)){
-var res = temp__4423__auto__;
+if(cljs.core.truth_(temp__4655__auto__)){
+var res = temp__4655__auto__;
 return cljs.core.assoc.call(null,m,k,res);
 } else {
 var res = cljs.core.dissoc.call(null,m,k);
@@ -41,9 +41,12 @@ return Array.prototype.slice.call(array_like);
  */
 dommy.utils.as_str = (function dommy$utils$as_str(s){
 if((s instanceof cljs.core.Keyword)){
-return [cljs.core.str((function (){var G__52528 = cljs.core.namespace.call(null,s);
-var G__52528__$1 = (((G__52528 == null))?null:[cljs.core.str(G__52528),cljs.core.str("/")].join(''));
-return G__52528__$1;
+return [cljs.core.str((function (){var G__288417 = cljs.core.namespace.call(null,s);
+if((G__288417 == null)){
+return null;
+} else {
+return [cljs.core.str(G__288417),cljs.core.str("/")].join('');
+}
 })()),cljs.core.str(cljs.core.name.call(null,s))].join('');
 } else {
 return s;
@@ -54,8 +57,8 @@ return s;
  * only will be used when Element::classList doesn't exist
  */
 dommy.utils.class_match_QMARK_ = (function dommy$utils$class_match_QMARK_(class_name,class$,idx){
-var and__24153__auto__ = ((idx === (0))) || ((" " === class_name.charAt((idx - (1)))));
-if(and__24153__auto__){
+var and__35179__auto__ = ((idx === (0))) || ((" " === class_name.charAt((idx - (1)))));
+if(and__35179__auto__){
 var total_len = class_name.length;
 var stop = (idx + class$.length);
 if((stop <= total_len)){
@@ -64,7 +67,7 @@ return ((stop === total_len)) || ((" " === class_name.charAt(stop)));
 return null;
 }
 } else {
-return and__24153__auto__;
+return and__35179__auto__;
 }
 });
 /**
@@ -79,8 +82,8 @@ if((i >= (0))){
 if(dommy.utils.class_match_QMARK_.call(null,class_name,class$,i)){
 return i;
 } else {
-var G__52529 = (i + class$.length);
-start_from = G__52529;
+var G__288462 = (i + class$.length);
+start_from = G__288462;
 continue;
 }
 } else {
@@ -93,13 +96,13 @@ dommy.utils.remove_class_str = (function dommy$utils$remove_class_str(init_class
 var class_name = init_class_name;
 while(true){
 var class_len = class_name.length;
-var temp__4423__auto__ = dommy.utils.class_index.call(null,class_name,class$);
-if(cljs.core.truth_(temp__4423__auto__)){
-var i = temp__4423__auto__;
-var G__52530 = (function (){var end = (i + class$.length);
+var temp__4655__auto__ = dommy.utils.class_index.call(null,class_name,class$);
+if(cljs.core.truth_(temp__4655__auto__)){
+var i = temp__4655__auto__;
+var G__288472 = (function (){var end = (i + class$.length);
 return [cljs.core.str((((end < class_len))?[cljs.core.str(class_name.substring((0),i)),cljs.core.str(class_name.substr((end + (1))))].join(''):class_name.substring((0),(i - (1)))))].join('');
 })();
-class_name = G__52530;
+class_name = G__288472;
 continue;
 } else {
 return class_name;
@@ -107,5 +110,3 @@ return class_name;
 break;
 }
 });
-
-//# sourceMappingURL=utils.js.map

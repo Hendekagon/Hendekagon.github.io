@@ -1,1 +1,0 @@
-{"version":3,"file":"\/Users\/onto\/projects\/Dynomics\/public\/js\/dynomics\/ui\/main.js","sources":["main.cljs"],"lineCount":8,"mappings":";AAAC;;;AAKD,AAACA;AAED,AAACC","names":["cljs.core\/enable-console-print!","dynomics.ui.ui\/start"]}

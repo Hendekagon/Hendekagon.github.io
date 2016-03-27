@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.8.34 {}
 goog.provide('hipo.hiccup');
 goog.require('cljs.core');
 goog.require('hipo.fast');
@@ -47,8 +47,8 @@ var s__$1 = cs;
 while(true){
 var i__$1 = s__$1.indexOf(hipo.hiccup.class_separator);
 if((i__$1 > (0))){
-var G__45804 = s__$1.replace(hipo.hiccup.class_separator," ");
-s__$1 = G__45804;
+var G__282017 = s__$1.replace(hipo.hiccup.class_separator," ");
+s__$1 = G__282017;
 continue;
 } else {
 return s__$1;
@@ -74,25 +74,25 @@ var id = hipo.hiccup.parse_id.call(null,n);
 var cs = hipo.hiccup.parse_classes.call(null,n);
 var m_QMARK_ = cljs.core.nth.call(null,v,(1),null);
 if(cljs.core.map_QMARK_.call(null,m_QMARK_)){
-if(cljs.core.truth_((function (){var and__24153__auto__ = id;
-if(cljs.core.truth_(and__24153__auto__)){
+if(cljs.core.truth_((function (){var and__35179__auto__ = id;
+if(cljs.core.truth_(and__35179__auto__)){
 return cljs.core.contains_QMARK_.call(null,m_QMARK_,new cljs.core.Keyword(null,"id","id",-1388402092));
 } else {
-return and__24153__auto__;
+return and__35179__auto__;
 }
 })())){
 throw cljs.core.ex_info.call(null,"Cannot define id multiple times",cljs.core.PersistentArrayMap.EMPTY);
 } else {
-if(cljs.core.truth_((function (){var or__24165__auto__ = id;
-if(cljs.core.truth_(or__24165__auto__)){
-return or__24165__auto__;
+if(cljs.core.truth_((function (){var or__35191__auto__ = id;
+if(cljs.core.truth_(or__35191__auto__)){
+return or__35191__auto__;
 } else {
 return cs;
 }
 })())){
-return cljs.core.merge.call(null,m_QMARK_,(cljs.core.truth_(id)?new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"id","id",-1388402092),id], null):null),(cljs.core.truth_(cs)?new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"class","class",-2030961996),(function (){var temp__4423__auto__ = new cljs.core.Keyword(null,"class","class",-2030961996).cljs$core$IFn$_invoke$arity$1(m_QMARK_);
-if(cljs.core.truth_(temp__4423__auto__)){
-var c = temp__4423__auto__;
+return cljs.core.merge.call(null,m_QMARK_,(cljs.core.truth_(id)?new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"id","id",-1388402092),id], null):null),(cljs.core.truth_(cs)?new cljs.core.PersistentArrayMap(null, 1, [new cljs.core.Keyword(null,"class","class",-2030961996),(function (){var temp__4655__auto__ = new cljs.core.Keyword(null,"class","class",-2030961996).cljs$core$IFn$_invoke$arity$1(m_QMARK_);
+if(cljs.core.truth_(temp__4655__auto__)){
+var c = temp__4655__auto__;
 if(cljs.core.truth_(cs)){
 return [cljs.core.str(cs),cljs.core.str(" "),cljs.core.str(c)].join('');
 } else {
@@ -107,9 +107,9 @@ return m_QMARK_;
 }
 }
 } else {
-if(cljs.core.truth_((function (){var or__24165__auto__ = id;
-if(cljs.core.truth_(or__24165__auto__)){
-return or__24165__auto__;
+if(cljs.core.truth_((function (){var or__35191__auto__ = id;
+if(cljs.core.truth_(or__35191__auto__)){
+return or__35191__auto__;
 } else {
 return cs;
 }
@@ -130,7 +130,7 @@ return cljs.core.subvec.call(null,v,(1));
 hipo.hiccup.flattened_QMARK_ = (function hipo$hiccup$flattened_QMARK_(v){
 if(((v == null)) || (cljs.core.vector_QMARK_.call(null,v))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"or","or",1876275696,null),cljs.core.list(new cljs.core.Symbol(null,"nil?","nil?",1612038930,null),new cljs.core.Symbol(null,"v","v",1661996586,null)),cljs.core.list(new cljs.core.Symbol(null,"vector?","vector?",-61367869,null),new cljs.core.Symbol(null,"v","v",1661996586,null)))))].join('')));
+throw (new Error("Assert failed: (or (nil? v) (vector? v))"));
 }
 
 if(cljs.core.truth_(hipo.fast.emptyv_QMARK_.call(null,v))){
@@ -140,13 +140,13 @@ var c = (cljs.core.count.call(null,v) - (1));
 var i = (0);
 while(true){
 var o = cljs.core.nth.call(null,v,i);
-if(cljs.core.truth_((function (){var or__24165__auto__ = (o == null);
-if(or__24165__auto__){
-return or__24165__auto__;
+if(cljs.core.truth_((function (){var or__35191__auto__ = (o == null);
+if(or__35191__auto__){
+return or__35191__auto__;
 } else {
-var or__24165__auto____$1 = hipo.hiccup.literal_QMARK_.call(null,o);
-if(cljs.core.truth_(or__24165__auto____$1)){
-return or__24165__auto____$1;
+var or__35191__auto____$1 = hipo.hiccup.literal_QMARK_.call(null,o);
+if(cljs.core.truth_(or__35191__auto____$1)){
+return or__35191__auto____$1;
 } else {
 return cljs.core.vector_QMARK_.call(null,o);
 }
@@ -155,8 +155,8 @@ return cljs.core.vector_QMARK_.call(null,o);
 if(cljs.core._EQ_.call(null,c,i)){
 return true;
 } else {
-var G__45805 = (i + (1));
-i = G__45805;
+var G__282027 = (i + (1));
+i = G__282027;
 continue;
 }
 } else {
@@ -169,7 +169,7 @@ break;
 hipo.hiccup.flatten_children = (function hipo$hiccup$flatten_children(v){
 if(cljs.core.vector_QMARK_.call(null,v)){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"vector?","vector?",-61367869,null),new cljs.core.Symbol(null,"v","v",1661996586,null))))].join('')));
+throw (new Error("Assert failed: (vector? v)"));
 }
 
 var _PERCENT_ = (cljs.core.truth_(hipo.hiccup.flattened_QMARK_.call(null,v))?v:(function (){var acc = cljs.core.transient$.call(null,cljs.core.PersistentVector.EMPTY);
@@ -179,10 +179,10 @@ var f = ((cljs.core._EQ_.call(null,(0),cljs.core.count.call(null,v__$1)))?null:c
 if((f == null)){
 return cljs.core.persistent_BANG_.call(null,acc);
 } else {
-var G__45806 = ((cljs.core.seq_QMARK_.call(null,f))?hipo.fast.conjs_BANG_.call(null,acc,f):cljs.core.conj_BANG_.call(null,acc,f));
-var G__45807 = cljs.core.subvec.call(null,v__$1,(1));
-acc = G__45806;
-v__$1 = G__45807;
+var G__282040 = ((cljs.core.seq_QMARK_.call(null,f))?hipo.fast.conjs_BANG_.call(null,acc,f):cljs.core.conj_BANG_.call(null,acc,f));
+var G__282041 = cljs.core.subvec.call(null,v__$1,(1));
+acc = G__282040;
+v__$1 = G__282041;
 continue;
 }
 break;
@@ -190,7 +190,7 @@ break;
 })());
 if(cljs.core.vector_QMARK_.call(null,v)){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"vector?","vector?",-61367869,null),new cljs.core.Symbol(null,"v","v",1661996586,null))))].join('')));
+throw (new Error("Assert failed: (vector? v)"));
 }
 
 return _PERCENT_;
@@ -201,10 +201,8 @@ return ((0) === s.indexOf("on-"));
 hipo.hiccup.listener_name__GT_event_name = (function hipo$hiccup$listener_name__GT_event_name(s){
 if(cljs.core.truth_(hipo.hiccup.listener_name_QMARK_.call(null,s))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"listener-name?","listener-name?",30471643,null),new cljs.core.Symbol(null,"s","s",-948495851,null))))].join('')));
+throw (new Error("Assert failed: (listener-name? s)"));
 }
 
 return cljs.core.subs.call(null,s,(3));
 });
-
-//# sourceMappingURL=hiccup.js.map
