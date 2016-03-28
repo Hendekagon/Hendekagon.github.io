@@ -36,23 +36,23 @@ throw (new Error("Assert failed: (not (neg? i))"));
 return (el.childNodes[i]);
 });
 hipo.dom.children = (function hipo$dom$children(var_args){
-var args369109 = [];
-var len__36260__auto___369121 = arguments.length;
-var i__36261__auto___369122 = (0);
+var args449012 = [];
+var len__36260__auto___449016 = arguments.length;
+var i__36261__auto___449017 = (0);
 while(true){
-if((i__36261__auto___369122 < len__36260__auto___369121)){
-args369109.push((arguments[i__36261__auto___369122]));
+if((i__36261__auto___449017 < len__36260__auto___449016)){
+args449012.push((arguments[i__36261__auto___449017]));
 
-var G__369126 = (i__36261__auto___369122 + (1));
-i__36261__auto___369122 = G__369126;
+var G__449018 = (i__36261__auto___449017 + (1));
+i__36261__auto___449017 = G__449018;
 continue;
 } else {
 }
 break;
 }
 
-var G__369112 = args369109.length;
-switch (G__369112) {
+var G__449014 = args449012.length;
+switch (G__449014) {
 case 1:
 return hipo.dom.children.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -62,7 +62,7 @@ return hipo.dom.children.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(argumen
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args369109.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args449012.length)].join('')));
 
 }
 });
@@ -95,10 +95,10 @@ return nel;
 return and__35179__auto__;
 }
 })())){
-var G__369134 = nel;
-var G__369135 = cljs.core.conj.call(null,acc,nel);
-cel = G__369134;
-acc = G__369135;
+var G__449026 = nel;
+var G__449027 = cljs.core.conj.call(null,acc,nel);
+cel = G__449026;
+acc = G__449027;
 continue;
 } else {
 return acc;
@@ -167,8 +167,8 @@ el.lastChild.remove();
 el.removeChild(el.lastChild);
 }
 
-var G__369146 = (_ + (1));
-_ = G__369146;
+var G__449038 = (_ + (1));
+_ = G__449038;
 continue;
 } else {
 return null;
