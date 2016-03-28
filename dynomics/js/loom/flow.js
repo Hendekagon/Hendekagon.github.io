@@ -39,15 +39,15 @@ var adj_list = cljs.core.seq.call(null,flow);
 while(true){
 var temp__4655__auto__ = cljs.core.first.call(null,adj_list);
 if(cljs.core.truth_(temp__4655__auto__)){
-var vec__284041 = temp__4655__auto__;
-var node = cljs.core.nth.call(null,vec__284041,(0),null);
-var neighbours = cljs.core.nth.call(null,vec__284041,(1),null);
-var G__284042 = cljs.core.assoc.call(null,out,node,(- cljs.core.reduce.call(null,cljs.core._PLUS_,cljs.core.vals.call(null,neighbours))));
-var G__284043 = cljs.core.merge_with.call(null,cljs.core._PLUS_,in$,neighbours);
-var G__284044 = cljs.core.next.call(null,adj_list);
-out = G__284042;
-in$ = G__284043;
-adj_list = G__284044;
+var vec__293725 = temp__4655__auto__;
+var node = cljs.core.nth.call(null,vec__293725,(0),null);
+var neighbours = cljs.core.nth.call(null,vec__293725,(1),null);
+var G__293726 = cljs.core.assoc.call(null,out,node,(- cljs.core.reduce.call(null,cljs.core._PLUS_,cljs.core.vals.call(null,neighbours))));
+var G__293727 = cljs.core.merge_with.call(null,cljs.core._PLUS_,in$,neighbours);
+var G__293728 = cljs.core.next.call(null,adj_list);
+out = G__293726;
+in$ = G__293727;
+adj_list = G__293728;
 continue;
 } else {
 return cljs.core.merge_with.call(null,cljs.core._PLUS_,out,in$);
@@ -88,17 +88,17 @@ return (0);
  * on each edge is <= capacity of that edge.
  */
 loom.flow.satisfies_capacity_constraints_QMARK_ = (function loom$flow$satisfies_capacity_constraints_QMARK_(flow,capacity){
-return cljs.core.every_QMARK_.call(null,(function (p__284061){
-var vec__284062 = p__284061;
-var node = cljs.core.nth.call(null,vec__284062,(0),null);
-var flow_to_successors = cljs.core.nth.call(null,vec__284062,(1),null);
-return cljs.core.every_QMARK_.call(null,((function (vec__284062,node,flow_to_successors){
-return (function (p__284065){
-var vec__284066 = p__284065;
-var neighbor = cljs.core.nth.call(null,vec__284066,(0),null);
-var flow_value = cljs.core.nth.call(null,vec__284066,(1),null);
+return cljs.core.every_QMARK_.call(null,(function (p__293739){
+var vec__293740 = p__293739;
+var node = cljs.core.nth.call(null,vec__293740,(0),null);
+var flow_to_successors = cljs.core.nth.call(null,vec__293740,(1),null);
+return cljs.core.every_QMARK_.call(null,((function (vec__293740,node,flow_to_successors){
+return (function (p__293741){
+var vec__293742 = p__293741;
+var neighbor = cljs.core.nth.call(null,vec__293742,(0),null);
+var flow_value = cljs.core.nth.call(null,vec__293742,(1),null);
 return (flow_value <= capacity.call(null,node,neighbor));
-});})(vec__284062,node,flow_to_successors))
+});})(vec__293740,node,flow_to_successors))
 ,cljs.core.seq.call(null,flow_to_successors));
 }),cljs.core.seq.call(null,flow));
 });
@@ -120,8 +120,8 @@ return and__35179__auto__;
  * path. If an edge on the path is missing, returns 0.
  */
 loom.flow.min_weight_along_path = (function loom$flow$min_weight_along_path(path,weight_fn){
-return cljs.core.reduce.call(null,cljs.core.min,cljs.core.map.call(null,(function (p1__284077_SHARP_){
-var or__35191__auto__ = cljs.core.apply.call(null,weight_fn,p1__284077_SHARP_);
+return cljs.core.reduce.call(null,cljs.core.min,cljs.core.map.call(null,(function (p1__293745_SHARP_){
+var or__35191__auto__ = cljs.core.apply.call(null,weight_fn,p1__293745_SHARP_);
 if(cljs.core.truth_(or__35191__auto__)){
 return or__35191__auto__;
 } else {
@@ -141,8 +141,8 @@ return (0);
  */
 loom.flow.bf_find_augmenting_path = (function loom$flow$bf_find_augmenting_path(successors,predecessors,capacity,flow,s,t){
 return loom.alg_generic.bf_path.call(null,(function (vertex){
-return cljs.core.distinct.call(null,cljs.core.filter.call(null,(function (p1__284081_SHARP_){
-return (loom.flow.residual_capacity.call(null,capacity,flow,vertex,p1__284081_SHARP_) > (0));
+return cljs.core.distinct.call(null,cljs.core.filter.call(null,(function (p1__293748_SHARP_){
+return (loom.flow.residual_capacity.call(null,capacity,flow,vertex,p1__293748_SHARP_) > (0));
 }),cljs.core.concat.call(null,successors.call(null,vertex),predecessors.call(null,vertex))));
 }),s,t);
 });
@@ -190,14 +190,14 @@ if((pushback > reverse_flow)){
 throw Object([cljs.core.str("Path augmentation failure: "),cljs.core.str(vn0),cljs.core.str(" "),cljs.core.str(vn1)].join(''));
 } else {
 if((cljs.core.count.call(null,path) > (2))){
-var G__284105 = flow_2;
-var G__284106 = capacity;
-var G__284107 = cljs.core.next.call(null,path);
-var G__284108 = increase;
-flow = G__284105;
-capacity = G__284106;
-path = G__284107;
-increase = G__284108;
+var G__293771 = flow_2;
+var G__293772 = capacity;
+var G__293773 = cljs.core.next.call(null,path);
+var G__293774 = increase;
+flow = G__293771;
+capacity = G__293772;
+path = G__293773;
+increase = G__293774;
 continue;
 } else {
 return flow_2;
@@ -221,23 +221,23 @@ break;
  * flow passing from source to sink.
  */
 loom.flow.edmonds_karp = (function loom$flow$edmonds_karp(var_args){
-var args284110 = [];
-var len__36260__auto___284132 = arguments.length;
-var i__36261__auto___284133 = (0);
+var args293775 = [];
+var len__36260__auto___293780 = arguments.length;
+var i__36261__auto___293782 = (0);
 while(true){
-if((i__36261__auto___284133 < len__36260__auto___284132)){
-args284110.push((arguments[i__36261__auto___284133]));
+if((i__36261__auto___293782 < len__36260__auto___293780)){
+args293775.push((arguments[i__36261__auto___293782]));
 
-var G__284136 = (i__36261__auto___284133 + (1));
-i__36261__auto___284133 = G__284136;
+var G__293785 = (i__36261__auto___293782 + (1));
+i__36261__auto___293782 = G__293785;
 continue;
 } else {
 }
 break;
 }
 
-var G__284119 = args284110.length;
-switch (G__284119) {
+var G__293777 = args293775.length;
+switch (G__293777) {
 case 5:
 return loom.flow.edmonds_karp.cljs$core$IFn$_invoke$arity$5((arguments[(0)]),(arguments[(1)]),(arguments[(2)]),(arguments[(3)]),(arguments[(4)]));
 
@@ -247,7 +247,7 @@ return loom.flow.edmonds_karp.cljs$core$IFn$_invoke$arity$6((arguments[(0)]),(ar
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args284110.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args293775.length)].join('')));
 
 }
 });
@@ -261,18 +261,18 @@ while(true){
 var temp__4655__auto__ = loom.flow.bf_find_augmenting_path.call(null,successors,predecessors,capacity,flow,source,sink);
 if(cljs.core.truth_(temp__4655__auto__)){
 var path = temp__4655__auto__;
-var G__284149 = successors;
-var G__284150 = predecessors;
-var G__284151 = capacity;
-var G__284152 = source;
-var G__284153 = sink;
-var G__284154 = loom.flow.augment_along_path.call(null,flow,capacity,path,loom.flow.min_weight_along_path.call(null,path,cljs.core.partial.call(null,loom.flow.residual_capacity,capacity,flow)));
-successors = G__284149;
-predecessors = G__284150;
-capacity = G__284151;
-source = G__284152;
-sink = G__284153;
-flow = G__284154;
+var G__293791 = successors;
+var G__293792 = predecessors;
+var G__293793 = capacity;
+var G__293794 = source;
+var G__293795 = sink;
+var G__293796 = loom.flow.augment_along_path.call(null,flow,capacity,path,loom.flow.min_weight_along_path.call(null,path,cljs.core.partial.call(null,loom.flow.residual_capacity,capacity,flow)));
+successors = G__293791;
+predecessors = G__293792;
+capacity = G__293793;
+source = G__293794;
+sink = G__293795;
+flow = G__293796;
 continue;
 } else {
 var value = cljs.core.reduce.call(null,cljs.core._PLUS_,cljs.core.vals.call(null,cljs.core.get.call(null,flow,source)));
@@ -283,3 +283,5 @@ break;
 });
 
 loom.flow.edmonds_karp.cljs$lang$maxFixedArity = 6;
+
+//# sourceMappingURL=flow.js.map?rel=1459068552022

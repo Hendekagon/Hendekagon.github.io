@@ -7,10 +7,10 @@ return (cljs.core.count.call(null,v) === (0));
 hipo.fast.conjs_BANG_ = (function hipo$fast$conjs_BANG_(v,s){
 while(true){
 if(cljs.core.truth_(s)){
-var G__281997 = cljs.core.conj_BANG_.call(null,v,cljs.core.first.call(null,s));
-var G__281998 = cljs.core.next.call(null,s);
-v = G__281997;
-s = G__281998;
+var G__291748 = cljs.core.conj_BANG_.call(null,v,cljs.core.first.call(null,s));
+var G__291749 = cljs.core.next.call(null,s);
+v = G__291748;
+s = G__291749;
 continue;
 } else {
 return v;
@@ -18,3 +18,5 @@ return v;
 break;
 }
 });
+
+//# sourceMappingURL=fast.js.map?rel=1459068549410
