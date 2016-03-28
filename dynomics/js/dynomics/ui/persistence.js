@@ -21,5 +21,3 @@ cljs.core.println.call(null,"load state");
 
 return dynomics.ui.persistence.merge_state.call(null,state,cognitect.transit.read.call(null,cognitect.transit.reader.call(null,new cljs.core.Keyword(null,"json","json",1279968570)),localStorage.getItem("space/state")));
 });
-
-//# sourceMappingURL=persistence.js.map?rel=1459158467561

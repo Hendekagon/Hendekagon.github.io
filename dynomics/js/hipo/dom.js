@@ -36,23 +36,23 @@ throw (new Error("Assert failed: (not (neg? i))"));
 return (el.childNodes[i]);
 });
 hipo.dom.children = (function hipo$dom$children(var_args){
-var args291970 = [];
-var len__36260__auto___291977 = arguments.length;
-var i__36261__auto___291978 = (0);
+var args369109 = [];
+var len__36260__auto___369121 = arguments.length;
+var i__36261__auto___369122 = (0);
 while(true){
-if((i__36261__auto___291978 < len__36260__auto___291977)){
-args291970.push((arguments[i__36261__auto___291978]));
+if((i__36261__auto___369122 < len__36260__auto___369121)){
+args369109.push((arguments[i__36261__auto___369122]));
 
-var G__291979 = (i__36261__auto___291978 + (1));
-i__36261__auto___291978 = G__291979;
+var G__369126 = (i__36261__auto___369122 + (1));
+i__36261__auto___369122 = G__369126;
 continue;
 } else {
 }
 break;
 }
 
-var G__291974 = args291970.length;
-switch (G__291974) {
+var G__369112 = args369109.length;
+switch (G__369112) {
 case 1:
 return hipo.dom.children.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -62,7 +62,7 @@ return hipo.dom.children.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(argumen
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args291970.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args369109.length)].join('')));
 
 }
 });
@@ -95,10 +95,10 @@ return nel;
 return and__35179__auto__;
 }
 })())){
-var G__291985 = nel;
-var G__291986 = cljs.core.conj.call(null,acc,nel);
-cel = G__291985;
-acc = G__291986;
+var G__369134 = nel;
+var G__369135 = cljs.core.conj.call(null,acc,nel);
+cel = G__369134;
+acc = G__369135;
 continue;
 } else {
 return acc;
@@ -167,8 +167,8 @@ el.lastChild.remove();
 el.removeChild(el.lastChild);
 }
 
-var G__292012 = (_ + (1));
-_ = G__292012;
+var G__369146 = (_ + (1));
+_ = G__369146;
 continue;
 } else {
 return null;
@@ -194,5 +194,3 @@ throw (new Error("Assert failed: (element? nel)"));
 
 return el.insertBefore(nel,hipo.dom.child_at.call(null,el,i));
 });
-
-//# sourceMappingURL=dom.js.map?rel=1459068550271

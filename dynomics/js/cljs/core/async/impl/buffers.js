@@ -8,8 +8,8 @@ while(true){
 if((cnt < len)){
 (dest[(dest_start + cnt)] = (src[(src_start + cnt)]));
 
-var G__291816 = (cnt + (1));
-cnt = G__291816;
+var G__368949 = (cnt + (1));
+cnt = G__368949;
 continue;
 } else {
 return null;
@@ -113,14 +113,14 @@ var n__36105__auto__ = self__.length;
 var x = (0);
 while(true){
 if((x < n__36105__auto__)){
-var v_291823 = this$.pop();
-if(keep_QMARK_.call(null,v_291823)){
-this$.unshift(v_291823);
+var v_368954 = this$.pop();
+if(keep_QMARK_.call(null,v_368954)){
+this$.unshift(v_368954);
 } else {
 }
 
-var G__291824 = (x + (1));
-x = G__291824;
+var G__368955 = (x + (1));
+x = G__368955;
 continue;
 } else {
 return null;
@@ -344,5 +344,3 @@ return (new cljs.core.async.impl.buffers.SlidingBuffer(buf,n));
 cljs.core.async.impl.buffers.sliding_buffer = (function cljs$core$async$impl$buffers$sliding_buffer(n){
 return (new cljs.core.async.impl.buffers.SlidingBuffer(cljs.core.async.impl.buffers.ring_buffer.call(null,n),n));
 });
-
-//# sourceMappingURL=buffers.js.map?rel=1459068549956
