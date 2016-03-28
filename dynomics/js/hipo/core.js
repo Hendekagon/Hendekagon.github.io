@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.8.34 {}
+// Compiled by ClojureScript 1.8.40 {}
 goog.provide('hipo.core');
 goog.require('cljs.core');
 goog.require('hipo.interceptor');

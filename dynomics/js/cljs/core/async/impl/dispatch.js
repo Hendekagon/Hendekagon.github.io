@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.8.34 {}
+// Compiled by ClojureScript 1.8.40 {}
 goog.provide('cljs.core.async.impl.dispatch');
 goog.require('cljs.core');
 goog.require('cljs.core.async.impl.buffers');
@@ -12,16 +12,16 @@ cljs.core.async.impl.dispatch.running_QMARK_ = true;
 
 cljs.core.async.impl.dispatch.queued_QMARK_ = false;
 
-var count_448880 = (0);
+var count_84817 = (0);
 while(true){
-var m_448881 = cljs.core.async.impl.dispatch.tasks.pop();
-if((m_448881 == null)){
+var m_84818 = cljs.core.async.impl.dispatch.tasks.pop();
+if((m_84818 == null)){
 } else {
-m_448881.call(null);
+m_84818.call(null);
 
-if((count_448880 < cljs.core.async.impl.dispatch.TASK_BATCH_SIZE)){
-var G__448882 = (count_448880 + (1));
-count_448880 = G__448882;
+if((count_84817 < cljs.core.async.impl.dispatch.TASK_BATCH_SIZE)){
+var G__84819 = (count_84817 + (1));
+count_84817 = G__84819;
 continue;
 } else {
 }
@@ -38,11 +38,11 @@ return null;
 }
 });
 cljs.core.async.impl.dispatch.queue_dispatcher = (function cljs$core$async$impl$dispatch$queue_dispatcher(){
-if(cljs.core.truth_((function (){var and__35179__auto__ = cljs.core.async.impl.dispatch.queued_QMARK_;
-if(cljs.core.truth_(and__35179__auto__)){
+if(cljs.core.truth_((function (){var and__25815__auto__ = cljs.core.async.impl.dispatch.queued_QMARK_;
+if(cljs.core.truth_(and__25815__auto__)){
 return cljs.core.async.impl.dispatch.running_QMARK_;
 } else {
-return and__35179__auto__;
+return and__25815__auto__;
 }
 })())){
 return null;

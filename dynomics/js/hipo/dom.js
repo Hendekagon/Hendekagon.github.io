@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.8.34 {}
+// Compiled by ClojureScript 1.8.40 {}
 goog.provide('hipo.dom');
 goog.require('cljs.core');
 hipo.dom.create_element = (function hipo$dom$create_element(namespace_uri,tag){
@@ -36,23 +36,23 @@ throw (new Error("Assert failed: (not (neg? i))"));
 return (el.childNodes[i]);
 });
 hipo.dom.children = (function hipo$dom$children(var_args){
-var args449012 = [];
-var len__36260__auto___449016 = arguments.length;
-var i__36261__auto___449017 = (0);
+var args84904 = [];
+var len__26896__auto___84913 = arguments.length;
+var i__26897__auto___84914 = (0);
 while(true){
-if((i__36261__auto___449017 < len__36260__auto___449016)){
-args449012.push((arguments[i__36261__auto___449017]));
+if((i__26897__auto___84914 < len__26896__auto___84913)){
+args84904.push((arguments[i__26897__auto___84914]));
 
-var G__449018 = (i__36261__auto___449017 + (1));
-i__36261__auto___449017 = G__449018;
+var G__84915 = (i__26897__auto___84914 + (1));
+i__26897__auto___84914 = G__84915;
 continue;
 } else {
 }
 break;
 }
 
-var G__449014 = args449012.length;
-switch (G__449014) {
+var G__84912 = args84904.length;
+switch (G__84912) {
 case 1:
 return hipo.dom.children.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -62,7 +62,7 @@ return hipo.dom.children.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(argumen
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args449012.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args84904.length)].join('')));
 
 }
 });
@@ -88,17 +88,17 @@ var cel = fel;
 var acc = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [cel], null);
 while(true){
 var nel = cel.nextSibling;
-if(cljs.core.truth_((function (){var and__35179__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
-if(and__35179__auto__){
+if(cljs.core.truth_((function (){var and__25815__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
+if(and__25815__auto__){
 return nel;
 } else {
-return and__35179__auto__;
+return and__25815__auto__;
 }
 })())){
-var G__449026 = nel;
-var G__449027 = cljs.core.conj.call(null,acc,nel);
-cel = G__449026;
-acc = G__449027;
+var G__84924 = nel;
+var G__84925 = cljs.core.conj.call(null,acc,nel);
+cel = G__84924;
+acc = G__84925;
 continue;
 } else {
 return acc;
@@ -157,18 +157,18 @@ if(!((n < (0)))){
 throw (new Error("Assert failed: (not (neg? n))"));
 }
 
-var n__36105__auto__ = n;
+var n__26741__auto__ = n;
 var _ = (0);
 while(true){
-if((_ < n__36105__auto__)){
+if((_ < n__26741__auto__)){
 if(typeof el.remove !== 'undefined'){
 el.lastChild.remove();
 } else {
 el.removeChild(el.lastChild);
 }
 
-var G__449038 = (_ + (1));
-_ = G__449038;
+var G__84947 = (_ + (1));
+_ = G__84947;
 continue;
 } else {
 return null;
