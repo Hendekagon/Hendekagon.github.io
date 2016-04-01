@@ -3,14 +3,14 @@
   (:require
    [clojure.string :as string])
   #?(:clj
-     (:refer-clojure :exclude [+ - > empty first map meta not time var]))
+     (:refer-clojure :exclude [+ - > empty first map meta not time link var]))
   #?(:clj
      (:import clojure.lang.Keyword
               clojure.lang.Symbol
               clojure.lang.IFn
               clojure.lang.Named))
   #?(:cljs
-     (:refer-clojure :exclude [+ - > empty first map meta not]))
+     (:refer-clojure :exclude [+ - > empty first map meta not time link]))
   #?(:cljs
      (:require-macros
       [garden.selectors :refer [defselector
@@ -571,10 +571,10 @@
 
 #?(:clj
    (defmacro defselector
-     "Define an instance of CSSSelector named sym for creating a
+     "Define an instance of a CSSSelector named sym for creating a
   CSS selector. This instance doubles as both a function and a
-  literal (when passed to css-selector). When the function is called
-  it will return a new instance that pocesses the same property. All
+  literal (when passed to the css-selector). When the function is called
+  it will return a new instance that possesses the same properties. All
   arguments to the function must satisfy ICSSSelector.
 
   Example:
@@ -606,10 +606,10 @@
 
 #?(:clj
    (defmacro defpseudoclass
-     "Define an instance of CSSSelector named sym for creating a CSS
+     "Define an instance of a CSSSelector named sym for creating a CSS
   pseudo class. This instance doubles as both a function and a
-  literal (when passed to css-selector). When the function is called
-  it will return a new instance that pocesses the same property. All
+  literal (when passed to the css-selector). When the function is called
+  it will return a new instance that possesses the same properties. All
   arguments to the function must satisfy ICSSSelector.
 
   Optionally fn-tail may be passed to create a structual pseudo class.
@@ -654,10 +654,10 @@
 
 #?(:clj
    (defmacro defpseudoelement
-     "Define an instance of CSSSelector named sym for creating a CSS
+     "Define an instance of a CSSSelector named sym for creating a CSS
   pseudo element. This instance doubles as both a function and a
-  literal (when passed to css-selector). When the function is called
-  it will return a new instance that pocesses the same property. All
+  literal (when passed to the css-selector). When the function is called
+  it will return a new instance that possesses the same properties. All
   arguments to the function must satisfy ICSSSelector.
 
   Example:
@@ -878,8 +878,8 @@
       m
       (throw
        #?(:clj (IllegalArgumentException.)
-          :cljs (js/Error.))
-       (str "Invalid value " (pr-str s))))))
+          :cljs (js/Error.)
+          (str "Invalid value " (pr-str s)))))))
 
 (defpseudoclass
   ^{:doc "CSS :nth-child pseudo class selector."} 

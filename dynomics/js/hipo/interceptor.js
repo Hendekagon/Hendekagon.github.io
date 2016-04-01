@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.8.40 {}
 goog.provide('hipo.interceptor');
 goog.require('cljs.core');
 
@@ -11,14 +11,14 @@ hipo.interceptor._intercept = (function hipo$interceptor$_intercept(this$,t,m){
 if((!((this$ == null))) && (!((this$.hipo$interceptor$Interceptor$_intercept$arity$3 == null)))){
 return this$.hipo$interceptor$Interceptor$_intercept$arity$3(this$,t,m);
 } else {
-var x__24816__auto__ = (((this$ == null))?null:this$);
-var m__24817__auto__ = (hipo.interceptor._intercept[goog.typeOf(x__24816__auto__)]);
-if(!((m__24817__auto__ == null))){
-return m__24817__auto__.call(null,this$,t,m);
+var x__26490__auto__ = (((this$ == null))?null:this$);
+var m__26491__auto__ = (hipo.interceptor._intercept[goog.typeOf(x__26490__auto__)]);
+if(!((m__26491__auto__ == null))){
+return m__26491__auto__.call(null,this$,t,m);
 } else {
-var m__24817__auto____$1 = (hipo.interceptor._intercept["_"]);
-if(!((m__24817__auto____$1 == null))){
-return m__24817__auto____$1.call(null,this$,t,m);
+var m__26491__auto____$1 = (hipo.interceptor._intercept["_"]);
+if(!((m__26491__auto____$1 == null))){
+return m__26491__auto____$1.call(null,this$,t,m);
 } else {
 throw cljs.core.missing_protocol.call(null,"Interceptor.-intercept",this$);
 }
@@ -59,8 +59,8 @@ hipo.interceptor.TimeInterceptor.cljs$lang$type = true;
 
 hipo.interceptor.TimeInterceptor.cljs$lang$ctorStr = "hipo.interceptor/TimeInterceptor";
 
-hipo.interceptor.TimeInterceptor.cljs$lang$ctorPrWriter = (function (this__24759__auto__,writer__24760__auto__,opt__24761__auto__){
-return cljs.core._write.call(null,writer__24760__auto__,"hipo.interceptor/TimeInterceptor");
+hipo.interceptor.TimeInterceptor.cljs$lang$ctorPrWriter = (function (this__26433__auto__,writer__26434__auto__,opt__26435__auto__){
+return cljs.core._write.call(null,writer__26434__auto__,"hipo.interceptor/TimeInterceptor");
 });
 
 hipo.interceptor.__GT_TimeInterceptor = (function hipo$interceptor$__GT_TimeInterceptor(s){
@@ -103,8 +103,8 @@ hipo.interceptor.ProfileInterceptor.cljs$lang$type = true;
 
 hipo.interceptor.ProfileInterceptor.cljs$lang$ctorStr = "hipo.interceptor/ProfileInterceptor";
 
-hipo.interceptor.ProfileInterceptor.cljs$lang$ctorPrWriter = (function (this__24759__auto__,writer__24760__auto__,opt__24761__auto__){
-return cljs.core._write.call(null,writer__24760__auto__,"hipo.interceptor/ProfileInterceptor");
+hipo.interceptor.ProfileInterceptor.cljs$lang$ctorPrWriter = (function (this__26433__auto__,writer__26434__auto__,opt__26435__auto__){
+return cljs.core._write.call(null,writer__26434__auto__,"hipo.interceptor/ProfileInterceptor");
 });
 
 hipo.interceptor.__GT_ProfileInterceptor = (function hipo$interceptor$__GT_ProfileInterceptor(label){
@@ -147,13 +147,11 @@ hipo.interceptor.PerformanceInterceptor.cljs$lang$type = true;
 
 hipo.interceptor.PerformanceInterceptor.cljs$lang$ctorStr = "hipo.interceptor/PerformanceInterceptor";
 
-hipo.interceptor.PerformanceInterceptor.cljs$lang$ctorPrWriter = (function (this__24759__auto__,writer__24760__auto__,opt__24761__auto__){
-return cljs.core._write.call(null,writer__24760__auto__,"hipo.interceptor/PerformanceInterceptor");
+hipo.interceptor.PerformanceInterceptor.cljs$lang$ctorPrWriter = (function (this__26433__auto__,writer__26434__auto__,opt__26435__auto__){
+return cljs.core._write.call(null,writer__26434__auto__,"hipo.interceptor/PerformanceInterceptor");
 });
 
 hipo.interceptor.__GT_PerformanceInterceptor = (function hipo$interceptor$__GT_PerformanceInterceptor(label){
 return (new hipo.interceptor.PerformanceInterceptor(label));
 });
 
-
-//# sourceMappingURL=interceptor.js.map

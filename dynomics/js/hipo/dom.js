@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.8.40 {}
 goog.provide('hipo.dom');
 goog.require('cljs.core');
 hipo.dom.create_element = (function hipo$dom$create_element(namespace_uri,tag){
@@ -25,34 +25,34 @@ return null;
 hipo.dom.child_at = (function hipo$dom$child_at(el,i){
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,el))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"el","el",22330409,null))))].join('')));
+throw (new Error("Assert failed: (element? el)"));
 }
 
 if(!((i < (0)))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"not","not",1044554643,null),cljs.core.list(new cljs.core.Symbol(null,"neg?","neg?",-1902175577,null),new cljs.core.Symbol(null,"i","i",253690212,null)))))].join('')));
+throw (new Error("Assert failed: (not (neg? i))"));
 }
 
 return (el.childNodes[i]);
 });
 hipo.dom.children = (function hipo$dom$children(var_args){
-var args1881367 = [];
-var len__25219__auto___1881370 = arguments.length;
-var i__25220__auto___1881371 = (0);
+var args84904 = [];
+var len__26896__auto___84913 = arguments.length;
+var i__26897__auto___84914 = (0);
 while(true){
-if((i__25220__auto___1881371 < len__25219__auto___1881370)){
-args1881367.push((arguments[i__25220__auto___1881371]));
+if((i__26897__auto___84914 < len__26896__auto___84913)){
+args84904.push((arguments[i__26897__auto___84914]));
 
-var G__1881372 = (i__25220__auto___1881371 + (1));
-i__25220__auto___1881371 = G__1881372;
+var G__84915 = (i__26897__auto___84914 + (1));
+i__26897__auto___84914 = G__84915;
 continue;
 } else {
 }
 break;
 }
 
-var G__1881369 = args1881367.length;
-switch (G__1881369) {
+var G__84912 = args84904.length;
+switch (G__84912) {
 case 1:
 return hipo.dom.children.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -62,7 +62,7 @@ return hipo.dom.children.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(argumen
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args1881367.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args84904.length)].join('')));
 
 }
 });
@@ -74,12 +74,12 @@ return hipo.dom.children.call(null,el,(0));
 hipo.dom.children.cljs$core$IFn$_invoke$arity$2 = (function (el,i){
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,el))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"el","el",22330409,null))))].join('')));
+throw (new Error("Assert failed: (element? el)"));
 }
 
 if(!((i < (0)))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"not","not",1044554643,null),cljs.core.list(new cljs.core.Symbol(null,"neg?","neg?",-1902175577,null),new cljs.core.Symbol(null,"i","i",253690212,null)))))].join('')));
+throw (new Error("Assert failed: (not (neg? i))"));
 }
 
 var fel = el.firstChild;
@@ -88,17 +88,17 @@ var cel = fel;
 var acc = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [cel], null);
 while(true){
 var nel = cel.nextSibling;
-if(cljs.core.truth_((function (){var and__24149__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
-if(and__24149__auto__){
+if(cljs.core.truth_((function (){var and__25815__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
+if(and__25815__auto__){
 return nel;
 } else {
-return and__24149__auto__;
+return and__25815__auto__;
 }
 })())){
-var G__1881374 = nel;
-var G__1881375 = cljs.core.conj.call(null,acc,nel);
-cel = G__1881374;
-acc = G__1881375;
+var G__84924 = nel;
+var G__84925 = cljs.core.conj.call(null,acc,nel);
+cel = G__84924;
+acc = G__84925;
 continue;
 } else {
 return acc;
@@ -114,17 +114,17 @@ hipo.dom.children.cljs$lang$maxFixedArity = 2;
 hipo.dom.replace_BANG_ = (function hipo$dom$replace_BANG_(el,nel){
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,el))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"el","el",22330409,null))))].join('')));
+throw (new Error("Assert failed: (element? el)"));
 }
 
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,nel))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"nel","nel",-1869920571,null))))].join('')));
+throw (new Error("Assert failed: (element? nel)"));
 }
 
 if(!((el.parentElement == null))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"not","not",1044554643,null),cljs.core.list(new cljs.core.Symbol(null,"nil?","nil?",1612038930,null),cljs.core.list(new cljs.core.Symbol(null,".-parentElement",".-parentElement",407983630,null),new cljs.core.Symbol(null,"el","el",22330409,null))))))].join('')));
+throw (new Error("Assert failed: (not (nil? (.-parentElement el)))"));
 }
 
 return el.parentElement.replaceChild(nel,el);
@@ -141,7 +141,7 @@ return hipo.dom.replace_BANG_.call(null,el,document.createTextNode(s));
 hipo.dom.clear_BANG_ = (function hipo$dom$clear_BANG_(el){
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,el))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"el","el",22330409,null))))].join('')));
+throw (new Error("Assert failed: (element? el)"));
 }
 
 return el.innerHTML = "";
@@ -149,26 +149,26 @@ return el.innerHTML = "";
 hipo.dom.remove_trailing_children_BANG_ = (function hipo$dom$remove_trailing_children_BANG_(el,n){
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,el))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"el","el",22330409,null))))].join('')));
+throw (new Error("Assert failed: (element? el)"));
 }
 
 if(!((n < (0)))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"not","not",1044554643,null),cljs.core.list(new cljs.core.Symbol(null,"neg?","neg?",-1902175577,null),new cljs.core.Symbol(null,"n","n",-2092305744,null)))))].join('')));
+throw (new Error("Assert failed: (not (neg? n))"));
 }
 
-var n__25064__auto__ = n;
+var n__26741__auto__ = n;
 var _ = (0);
 while(true){
-if((_ < n__25064__auto__)){
+if((_ < n__26741__auto__)){
 if(typeof el.remove !== 'undefined'){
 el.lastChild.remove();
 } else {
 el.removeChild(el.lastChild);
 }
 
-var G__1881376 = (_ + (1));
-_ = G__1881376;
+var G__84947 = (_ + (1));
+_ = G__84947;
 continue;
 } else {
 return null;
@@ -179,20 +179,18 @@ break;
 hipo.dom.insert_child_at_BANG_ = (function hipo$dom$insert_child_at_BANG_(el,i,nel){
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,el))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"el","el",22330409,null))))].join('')));
+throw (new Error("Assert failed: (element? el)"));
 }
 
 if(!((i < (0)))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"not","not",1044554643,null),cljs.core.list(new cljs.core.Symbol(null,"neg?","neg?",-1902175577,null),new cljs.core.Symbol(null,"i","i",253690212,null)))))].join('')));
+throw (new Error("Assert failed: (not (neg? i))"));
 }
 
 if(cljs.core.truth_(hipo.dom.element_QMARK_.call(null,nel))){
 } else {
-throw (new Error([cljs.core.str("Assert failed: "),cljs.core.str(cljs.core.pr_str.call(null,cljs.core.list(new cljs.core.Symbol(null,"element?","element?",-134836339,null),new cljs.core.Symbol(null,"nel","nel",-1869920571,null))))].join('')));
+throw (new Error("Assert failed: (element? nel)"));
 }
 
 return el.insertBefore(nel,hipo.dom.child_at.call(null,el,i));
 });
-
-//# sourceMappingURL=dom.js.map

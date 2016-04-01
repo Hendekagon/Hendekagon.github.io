@@ -1,4 +1,4 @@
-// Compiled by ClojureScript 1.7.170 {}
+// Compiled by ClojureScript 1.8.40 {}
 goog.provide('hipo.core');
 goog.require('cljs.core');
 goog.require('hipo.interceptor');
@@ -7,5 +7,3 @@ hipo.core.partially_compiled_QMARK_ = (function hipo$core$partially_compiled_QMA
 
 return cljs.core.boolean$.call(null,(el["hipo-partially-compiled"]));
 });
-
-//# sourceMappingURL=core.js.map
