@@ -155,5 +155,3 @@ hipo.interceptor.__GT_PerformanceInterceptor = (function hipo$interceptor$__GT_P
 return (new hipo.interceptor.PerformanceInterceptor(label));
 });
 
-
-//# sourceMappingURL=interceptor.js.map?rel=1459533426681

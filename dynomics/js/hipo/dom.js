@@ -36,23 +36,23 @@ throw (new Error("Assert failed: (not (neg? i))"));
 return (el.childNodes[i]);
 });
 hipo.dom.children = (function hipo$dom$children(var_args){
-var args65854 = [];
-var len__36491__auto___65857 = arguments.length;
-var i__36492__auto___65858 = (0);
+var args84722 = [];
+var len__36491__auto___84726 = arguments.length;
+var i__36492__auto___84727 = (0);
 while(true){
-if((i__36492__auto___65858 < len__36491__auto___65857)){
-args65854.push((arguments[i__36492__auto___65858]));
+if((i__36492__auto___84727 < len__36491__auto___84726)){
+args84722.push((arguments[i__36492__auto___84727]));
 
-var G__65859 = (i__36492__auto___65858 + (1));
-i__36492__auto___65858 = G__65859;
+var G__84728 = (i__36492__auto___84727 + (1));
+i__36492__auto___84727 = G__84728;
 continue;
 } else {
 }
 break;
 }
 
-var G__65856 = args65854.length;
-switch (G__65856) {
+var G__84725 = args84722.length;
+switch (G__84725) {
 case 1:
 return hipo.dom.children.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -62,7 +62,7 @@ return hipo.dom.children.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(argumen
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args65854.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args84722.length)].join('')));
 
 }
 });
@@ -95,10 +95,10 @@ return nel;
 return and__35410__auto__;
 }
 })())){
-var G__65861 = nel;
-var G__65862 = cljs.core.conj.call(null,acc,nel);
-cel = G__65861;
-acc = G__65862;
+var G__84746 = nel;
+var G__84747 = cljs.core.conj.call(null,acc,nel);
+cel = G__84746;
+acc = G__84747;
 continue;
 } else {
 return acc;
@@ -167,8 +167,8 @@ el.lastChild.remove();
 el.removeChild(el.lastChild);
 }
 
-var G__65863 = (_ + (1));
-_ = G__65863;
+var G__84751 = (_ + (1));
+_ = G__84751;
 continue;
 } else {
 return null;
@@ -194,5 +194,3 @@ throw (new Error("Assert failed: (element? nel)"));
 
 return el.insertBefore(nel,hipo.dom.child_at.call(null,el,i));
 });
-
-//# sourceMappingURL=dom.js.map?rel=1459533426808

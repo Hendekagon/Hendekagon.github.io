@@ -8,8 +8,8 @@ while(true){
 if((cnt < len)){
 (dest[(dest_start + cnt)] = (src[(src_start + cnt)]));
 
-var G__65466 = (cnt + (1));
-cnt = G__65466;
+var G__84573 = (cnt + (1));
+cnt = G__84573;
 continue;
 } else {
 return null;
@@ -113,14 +113,14 @@ var n__36336__auto__ = self__.length;
 var x = (0);
 while(true){
 if((x < n__36336__auto__)){
-var v_65467 = this$.pop();
-if(keep_QMARK_.call(null,v_65467)){
-this$.unshift(v_65467);
+var v_84578 = this$.pop();
+if(keep_QMARK_.call(null,v_84578)){
+this$.unshift(v_84578);
 } else {
 }
 
-var G__65468 = (x + (1));
-x = G__65468;
+var G__84579 = (x + (1));
+x = G__84579;
 continue;
 } else {
 return null;
@@ -447,5 +447,3 @@ return (new cljs.core.async.impl.buffers.PromiseBuffer(val));
 cljs.core.async.impl.buffers.promise_buffer = (function cljs$core$async$impl$buffers$promise_buffer(){
 return (new cljs.core.async.impl.buffers.PromiseBuffer(cljs.core.async.impl.buffers.NO_VAL));
 });
-
-//# sourceMappingURL=buffers.js.map?rel=1459533425670
