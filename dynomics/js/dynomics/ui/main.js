@@ -7,3 +7,5 @@ dynomics.ui.ui.start.call(null);
 dynomics.ui.main.on_js_reload = (function dynomics$ui$main$on_js_reload(){
 return dynomics.ui.ui.start.call(null);
 });
+
+//# sourceMappingURL=main.js.map?rel=1459533500836
