@@ -11,14 +11,14 @@ hipo.interceptor._intercept = (function hipo$interceptor$_intercept(this$,t,m){
 if((!((this$ == null))) && (!((this$.hipo$interceptor$Interceptor$_intercept$arity$3 == null)))){
 return this$.hipo$interceptor$Interceptor$_intercept$arity$3(this$,t,m);
 } else {
-var x__36085__auto__ = (((this$ == null))?null:this$);
-var m__36086__auto__ = (hipo.interceptor._intercept[goog.typeOf(x__36085__auto__)]);
-if(!((m__36086__auto__ == null))){
-return m__36086__auto__.call(null,this$,t,m);
+var x__36055__auto__ = (((this$ == null))?null:this$);
+var m__36056__auto__ = (hipo.interceptor._intercept[goog.typeOf(x__36055__auto__)]);
+if(!((m__36056__auto__ == null))){
+return m__36056__auto__.call(null,this$,t,m);
 } else {
-var m__36086__auto____$1 = (hipo.interceptor._intercept["_"]);
-if(!((m__36086__auto____$1 == null))){
-return m__36086__auto____$1.call(null,this$,t,m);
+var m__36056__auto____$1 = (hipo.interceptor._intercept["_"]);
+if(!((m__36056__auto____$1 == null))){
+return m__36056__auto____$1.call(null,this$,t,m);
 } else {
 throw cljs.core.missing_protocol.call(null,"Interceptor.-intercept",this$);
 }
@@ -59,8 +59,8 @@ hipo.interceptor.TimeInterceptor.cljs$lang$type = true;
 
 hipo.interceptor.TimeInterceptor.cljs$lang$ctorStr = "hipo.interceptor/TimeInterceptor";
 
-hipo.interceptor.TimeInterceptor.cljs$lang$ctorPrWriter = (function (this__36028__auto__,writer__36029__auto__,opt__36030__auto__){
-return cljs.core._write.call(null,writer__36029__auto__,"hipo.interceptor/TimeInterceptor");
+hipo.interceptor.TimeInterceptor.cljs$lang$ctorPrWriter = (function (this__35998__auto__,writer__35999__auto__,opt__36000__auto__){
+return cljs.core._write.call(null,writer__35999__auto__,"hipo.interceptor/TimeInterceptor");
 });
 
 hipo.interceptor.__GT_TimeInterceptor = (function hipo$interceptor$__GT_TimeInterceptor(s){
@@ -103,8 +103,8 @@ hipo.interceptor.ProfileInterceptor.cljs$lang$type = true;
 
 hipo.interceptor.ProfileInterceptor.cljs$lang$ctorStr = "hipo.interceptor/ProfileInterceptor";
 
-hipo.interceptor.ProfileInterceptor.cljs$lang$ctorPrWriter = (function (this__36028__auto__,writer__36029__auto__,opt__36030__auto__){
-return cljs.core._write.call(null,writer__36029__auto__,"hipo.interceptor/ProfileInterceptor");
+hipo.interceptor.ProfileInterceptor.cljs$lang$ctorPrWriter = (function (this__35998__auto__,writer__35999__auto__,opt__36000__auto__){
+return cljs.core._write.call(null,writer__35999__auto__,"hipo.interceptor/ProfileInterceptor");
 });
 
 hipo.interceptor.__GT_ProfileInterceptor = (function hipo$interceptor$__GT_ProfileInterceptor(label){
@@ -147,8 +147,8 @@ hipo.interceptor.PerformanceInterceptor.cljs$lang$type = true;
 
 hipo.interceptor.PerformanceInterceptor.cljs$lang$ctorStr = "hipo.interceptor/PerformanceInterceptor";
 
-hipo.interceptor.PerformanceInterceptor.cljs$lang$ctorPrWriter = (function (this__36028__auto__,writer__36029__auto__,opt__36030__auto__){
-return cljs.core._write.call(null,writer__36029__auto__,"hipo.interceptor/PerformanceInterceptor");
+hipo.interceptor.PerformanceInterceptor.cljs$lang$ctorPrWriter = (function (this__35998__auto__,writer__35999__auto__,opt__36000__auto__){
+return cljs.core._write.call(null,writer__35999__auto__,"hipo.interceptor/PerformanceInterceptor");
 });
 
 hipo.interceptor.__GT_PerformanceInterceptor = (function hipo$interceptor$__GT_PerformanceInterceptor(label){

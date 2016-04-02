@@ -36,23 +36,23 @@ throw (new Error("Assert failed: (not (neg? i))"));
 return (el.childNodes[i]);
 });
 hipo.dom.children = (function hipo$dom$children(var_args){
-var args84722 = [];
-var len__36491__auto___84726 = arguments.length;
-var i__36492__auto___84727 = (0);
+var args95476 = [];
+var len__36461__auto___95486 = arguments.length;
+var i__36462__auto___95487 = (0);
 while(true){
-if((i__36492__auto___84727 < len__36491__auto___84726)){
-args84722.push((arguments[i__36492__auto___84727]));
+if((i__36462__auto___95487 < len__36461__auto___95486)){
+args95476.push((arguments[i__36462__auto___95487]));
 
-var G__84728 = (i__36492__auto___84727 + (1));
-i__36492__auto___84727 = G__84728;
+var G__95488 = (i__36462__auto___95487 + (1));
+i__36462__auto___95487 = G__95488;
 continue;
 } else {
 }
 break;
 }
 
-var G__84725 = args84722.length;
-switch (G__84725) {
+var G__95483 = args95476.length;
+switch (G__95483) {
 case 1:
 return hipo.dom.children.cljs$core$IFn$_invoke$arity$1((arguments[(0)]));
 
@@ -62,7 +62,7 @@ return hipo.dom.children.cljs$core$IFn$_invoke$arity$2((arguments[(0)]),(argumen
 
 break;
 default:
-throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args84722.length)].join('')));
+throw (new Error([cljs.core.str("Invalid arity: "),cljs.core.str(args95476.length)].join('')));
 
 }
 });
@@ -88,17 +88,17 @@ var cel = fel;
 var acc = new cljs.core.PersistentVector(null, 1, 5, cljs.core.PersistentVector.EMPTY_NODE, [cel], null);
 while(true){
 var nel = cel.nextSibling;
-if(cljs.core.truth_((function (){var and__35410__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
-if(and__35410__auto__){
+if(cljs.core.truth_((function (){var and__35380__auto__ = !(((cljs.core.count.call(null,acc) - (i + (1))) === (0)));
+if(and__35380__auto__){
 return nel;
 } else {
-return and__35410__auto__;
+return and__35380__auto__;
 }
 })())){
-var G__84746 = nel;
-var G__84747 = cljs.core.conj.call(null,acc,nel);
-cel = G__84746;
-acc = G__84747;
+var G__95491 = nel;
+var G__95492 = cljs.core.conj.call(null,acc,nel);
+cel = G__95491;
+acc = G__95492;
 continue;
 } else {
 return acc;
@@ -157,18 +157,18 @@ if(!((n < (0)))){
 throw (new Error("Assert failed: (not (neg? n))"));
 }
 
-var n__36336__auto__ = n;
+var n__36306__auto__ = n;
 var _ = (0);
 while(true){
-if((_ < n__36336__auto__)){
+if((_ < n__36306__auto__)){
 if(typeof el.remove !== 'undefined'){
 el.lastChild.remove();
 } else {
 el.removeChild(el.lastChild);
 }
 
-var G__84751 = (_ + (1));
-_ = G__84751;
+var G__95529 = (_ + (1));
+_ = G__95529;
 continue;
 } else {
 return null;

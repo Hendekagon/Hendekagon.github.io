@@ -47,8 +47,8 @@ var s__$1 = cs;
 while(true){
 var i__$1 = s__$1.indexOf(hipo.hiccup.class_separator);
 if((i__$1 > (0))){
-var G__84521 = s__$1.replace(hipo.hiccup.class_separator," ");
-s__$1 = G__84521;
+var G__95256 = s__$1.replace(hipo.hiccup.class_separator," ");
+s__$1 = G__95256;
 continue;
 } else {
 return s__$1;
@@ -74,18 +74,18 @@ var id = hipo.hiccup.parse_id.call(null,n);
 var cs = hipo.hiccup.parse_classes.call(null,n);
 var m_QMARK_ = cljs.core.nth.call(null,v,(1),null);
 if(cljs.core.map_QMARK_.call(null,m_QMARK_)){
-if(cljs.core.truth_((function (){var and__35410__auto__ = id;
-if(cljs.core.truth_(and__35410__auto__)){
+if(cljs.core.truth_((function (){var and__35380__auto__ = id;
+if(cljs.core.truth_(and__35380__auto__)){
 return cljs.core.contains_QMARK_.call(null,m_QMARK_,new cljs.core.Keyword(null,"id","id",-1388402092));
 } else {
-return and__35410__auto__;
+return and__35380__auto__;
 }
 })())){
 throw cljs.core.ex_info.call(null,"Cannot define id multiple times",cljs.core.PersistentArrayMap.EMPTY);
 } else {
-if(cljs.core.truth_((function (){var or__35422__auto__ = id;
-if(cljs.core.truth_(or__35422__auto__)){
-return or__35422__auto__;
+if(cljs.core.truth_((function (){var or__35392__auto__ = id;
+if(cljs.core.truth_(or__35392__auto__)){
+return or__35392__auto__;
 } else {
 return cs;
 }
@@ -107,9 +107,9 @@ return m_QMARK_;
 }
 }
 } else {
-if(cljs.core.truth_((function (){var or__35422__auto__ = id;
-if(cljs.core.truth_(or__35422__auto__)){
-return or__35422__auto__;
+if(cljs.core.truth_((function (){var or__35392__auto__ = id;
+if(cljs.core.truth_(or__35392__auto__)){
+return or__35392__auto__;
 } else {
 return cs;
 }
@@ -140,13 +140,13 @@ var c = (cljs.core.count.call(null,v) - (1));
 var i = (0);
 while(true){
 var o = cljs.core.nth.call(null,v,i);
-if(cljs.core.truth_((function (){var or__35422__auto__ = (o == null);
-if(or__35422__auto__){
-return or__35422__auto__;
+if(cljs.core.truth_((function (){var or__35392__auto__ = (o == null);
+if(or__35392__auto__){
+return or__35392__auto__;
 } else {
-var or__35422__auto____$1 = hipo.hiccup.literal_QMARK_.call(null,o);
-if(cljs.core.truth_(or__35422__auto____$1)){
-return or__35422__auto____$1;
+var or__35392__auto____$1 = hipo.hiccup.literal_QMARK_.call(null,o);
+if(cljs.core.truth_(or__35392__auto____$1)){
+return or__35392__auto____$1;
 } else {
 return cljs.core.vector_QMARK_.call(null,o);
 }
@@ -155,8 +155,8 @@ return cljs.core.vector_QMARK_.call(null,o);
 if(cljs.core._EQ_.call(null,c,i)){
 return true;
 } else {
-var G__84532 = (i + (1));
-i = G__84532;
+var G__95270 = (i + (1));
+i = G__95270;
 continue;
 }
 } else {
@@ -179,10 +179,10 @@ var f = ((cljs.core._EQ_.call(null,(0),cljs.core.count.call(null,v__$1)))?null:c
 if((f == null)){
 return cljs.core.persistent_BANG_.call(null,acc);
 } else {
-var G__84540 = ((cljs.core.seq_QMARK_.call(null,f))?hipo.fast.conjs_BANG_.call(null,acc,f):cljs.core.conj_BANG_.call(null,acc,f));
-var G__84541 = cljs.core.subvec.call(null,v__$1,(1));
-acc = G__84540;
-v__$1 = G__84541;
+var G__95274 = ((cljs.core.seq_QMARK_.call(null,f))?hipo.fast.conjs_BANG_.call(null,acc,f):cljs.core.conj_BANG_.call(null,acc,f));
+var G__95275 = cljs.core.subvec.call(null,v__$1,(1));
+acc = G__95274;
+v__$1 = G__95275;
 continue;
 }
 break;
