@@ -8,8 +8,8 @@ while(true){
 if((cnt < len)){
 (dest[(dest_start + cnt)] = (src[(src_start + cnt)]));
 
-var G__95307 = (cnt + (1));
-cnt = G__95307;
+var G__283838 = (cnt + (1));
+cnt = G__283838;
 continue;
 } else {
 return null;
@@ -113,14 +113,14 @@ var n__36306__auto__ = self__.length;
 var x = (0);
 while(true){
 if((x < n__36306__auto__)){
-var v_95313 = this$.pop();
-if(keep_QMARK_.call(null,v_95313)){
-this$.unshift(v_95313);
+var v_283842 = this$.pop();
+if(keep_QMARK_.call(null,v_283842)){
+this$.unshift(v_283842);
 } else {
 }
 
-var G__95314 = (x + (1));
-x = G__95314;
+var G__283843 = (x + (1));
+x = G__283843;
 continue;
 } else {
 return null;
